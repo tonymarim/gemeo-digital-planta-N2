@@ -1,0 +1,27 @@
+const {chromium}=require(process.env.PLAYWRIGHT_PATH||'C:/Users/marim/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('node:fs');
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']});
+ const page=await browser.newPage({viewport:{width:1500,height:1060},deviceScaleFactor:1});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4173');await page.waitForFunction(()=>document.querySelector('#connection').textContent.includes('ativo'));
+ await page.waitForTimeout(1500);
+ if(await page.locator('#sceneError').isVisible())throw Error(await page.locator('#sceneError').innerText());
+ fs.mkdirSync('reports',{recursive:true});await page.screenshot({path:'reports/visao-geral.png',fullPage:true});
+ await page.locator('[data-tab="tests"]').click();await page.locator('#runTests').click();await page.waitForFunction(()=>document.querySelector('#testResults').textContent.includes('17/17'));
+ await page.screenshot({path:'reports/comissionamento.png',fullPage:true});
+ await page.locator('[data-tab="io"]').click();await page.locator('#mode').selectOption('manual');await page.waitForFunction(()=>document.querySelector('#statusBadge').textContent==='PRONTO');
+ await page.locator('[data-signal="estoque.feedAdvance"]').click();await page.waitForFunction(()=>document.querySelector('[data-signal="estoque.feedExtended"]').textContent==='1');
+ await page.locator('#stop').click();await page.locator('#reset').click();await page.locator('#mode').selectOption('auto');
+ await page.locator('[data-tab="operate"]').click();await page.locator('#floorCount').selectOption('3');await page.locator('#speed').selectOption('5');await page.locator('#start').click();
+ await page.waitForFunction(()=>document.querySelector('#statusBadge').textContent==='EM CICLO');await page.locator('#emergency').click();await page.waitForFunction(()=>document.querySelector('#statusBadge').textContent==='EMERGÊNCIA');
+ await page.locator('#emergency').click();await page.locator('#reset').click();await page.locator('#start').click();
+ await page.waitForFunction(()=>document.querySelector('#statusBadge').textContent==='CONCLUÍDO',{},{timeout:60000});
+ await page.screenshot({path:'reports/pedido-concluido.png',fullPage:true});
+ if(errors.length)throw Error(errors.join('\n'));
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:'reports/mobile.png',fullPage:true});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('Overflow horizontal em tela móvel');
+ fs.writeFileSync('reports/browser.json',JSON.stringify({passed:true,errors,checks:['WebGL','17 ensaios pelo painel','saída manual e sensor','receita 3 andares','emergência e rearme','conclusão de pedido','layout 390px']},null,2));
+ console.log('Browser: UI, WebGL, manual, emergência, ciclo 3 andares e tela móvel aprovados.');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1);});

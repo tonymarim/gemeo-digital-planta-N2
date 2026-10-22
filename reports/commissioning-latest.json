@@ -1,0 +1,203 @@
+{
+  "timestamp": "2026-10-22T14:06:28.143Z",
+  "scope": "Ensaios do modelo local isolado; não validam PLC, trajetória física ou segurança funcional.",
+  "passed": true,
+  "total": 17,
+  "results": [
+    {
+      "name": "Receita 1 andar(es): conservação de peças, inspeção e expedição",
+      "passed": true,
+      "evidence": {
+        "cycleSeconds": 54.6,
+        "bases": 1,
+        "inspections": 3,
+        "robotCommands": 4
+      }
+    },
+    {
+      "name": "Receita 2 andar(es): conservação de peças, inspeção e expedição",
+      "passed": true,
+      "evidence": {
+        "cycleSeconds": 100.15,
+        "bases": 2,
+        "inspections": 6,
+        "robotCommands": 8
+      }
+    },
+    {
+      "name": "Receita 3 andar(es): conservação de peças, inspeção e expedição",
+      "passed": true,
+      "evidence": {
+        "cycleSeconds": 143.7,
+        "bases": 3,
+        "inspections": 9,
+        "robotCommands": 12
+      }
+    },
+    {
+      "name": "Emergência derruba saídas, congela movimentos e exige nova partida",
+      "passed": true,
+      "evidence": "Saídas zero; sem reinício automático; ciclo recuperado."
+    },
+    {
+      "name": "Perda de vácuo gera timeout sem consumir base",
+      "passed": true,
+      "evidence": "Sem confirmação: estoque.vacuumOK"
+    },
+    {
+      "name": "Esteira obstruída não entrega peça por temporização",
+      "passed": true,
+      "evidence": "Sem confirmação: montagem.rfid"
+    },
+    {
+      "name": "Rejeição de visão impede encaixe e expedição",
+      "passed": true,
+      "evidence": "Lâmina rejeitada na inspeção. Remova a falha e rearme para repetir a inspeção, ou aborte."
+    },
+    {
+      "name": "Garra não confirmada impede conclusão do comando",
+      "passed": true,
+      "evidence": "Garra sem confirmação; movimento bloqueado."
+    },
+    {
+      "name": "Força de sensor e liberação permitem repetir a etapa",
+      "passed": true,
+      "evidence": "Timeout observado; força removida; pedido concluído sem duplicar base."
+    },
+    {
+      "name": "Modo manual: cilindro movimenta sensores e rejeita comandos opostos",
+      "passed": true,
+      "evidence": "Fim de curso avançado ativo; recuado inativo; oposição bloqueada."
+    },
+    {
+      "name": "Eixo Z estendido bloqueia deslocamento do pórtico",
+      "passed": true,
+      "evidence": "Intertravamento de zona compartilhada confirmado."
+    },
+    {
+      "name": "Limites documentados e códigos de robô validados",
+      "passed": true,
+      "evidence": "Estoque 1–29, expedição 1–14, robô 1–23."
+    },
+    {
+      "name": "Magazine cheio bloqueia pedido antes de consumir insumos",
+      "passed": true,
+      "evidence": "Pedido recusado; inventário preservado."
+    },
+    {
+      "name": "Pedido sem matéria-prima é rejeitado atomicamente",
+      "passed": true,
+      "evidence": "Sem consumo parcial na validação da receita."
+    },
+    {
+      "name": "Abortar mantém rastreabilidade dos materiais consumidos",
+      "passed": true,
+      "evidence": "Uma base consumida registrada no pedido abortado."
+    },
+    {
+      "name": "Passo a passo avança exatamente uma etapa",
+      "passed": true,
+      "evidence": "Uma transição executada; modelo permanece pausado."
+    },
+    {
+      "name": "Trigger de visão gera uma borda para cada lâmina",
+      "passed": true,
+      "evidence": "Nove bordas de subida e nove inspeções."
+    }
+  ],
+  "configuration": {
+    "motionSeconds": 1.5,
+    "transportSeconds": 4,
+    "pneumaticSeconds": 0.45,
+    "timeoutSeconds": 5,
+    "robotSeconds": 2
+  },
+  "note": "Os testes usam configuração padrão isolada; configuração da sessão anexada apenas como contexto.",
+  "sources": [
+    {
+      "file": "Aplicativos.pdf",
+      "bytes": 122797,
+      "sha256": "871df6ab884f0b6422191f721cc577fe2be61efe675465050f23a9a1c6b44e18"
+    },
+    {
+      "file": "IP's.pdf",
+      "bytes": 100416,
+      "sha256": "2d3a49ab5b52f7f6099c869952615e23580a4b0ff904eb61379f76a260efc8a1"
+    },
+    {
+      "file": "Parâmetros de payload.jpeg",
+      "bytes": 110519,
+      "sha256": "bdfb45490c8a61238e250c97a8a76feb77f4e5b95a59c2af8d596cd64bf593f1"
+    },
+    {
+      "file": "Parâmetros de segurança.jpeg",
+      "bytes": 90193,
+      "sha256": "6dda1f665787deb4abed876e5be55dfa74c04f6d060886879c3d4033ade22163"
+    },
+    {
+      "file": "Posições_Robô.jpeg",
+      "bytes": 200441,
+      "sha256": "d02e12a08282aa99423d177874916ffa35edf5ac5bbce94d3ca711c480e7967e"
+    },
+    {
+      "file": "XL4002PD00.PT.GE.RevA.pdf",
+      "bytes": 67651162,
+      "sha256": "21582a5b457d38fe869b56e31e6539f462bfdc39eca4fd515696ccc8845c6946"
+    },
+    {
+      "file": "XL4002PD00.PT.MU.pdf",
+      "bytes": 70393447,
+      "sha256": "79779e2c269aa5b5ff29cbd33edc32ef5297582781549575293121267c17e76b"
+    },
+    {
+      "file": "Diagramas eletricos/102429_SUB CJ ESTOQUE SMART 4.0 - PAINEL ELETRICO MONTADO.pdf",
+      "bytes": 1049628,
+      "sha256": "1493551c4a62628be953d37c6cda04e5b9f26cfc77f20b14c08bf17e0a75cd43"
+    },
+    {
+      "file": "Diagramas eletricos/102439_SUB CJ PROCESSO SMART 4.0 - PAINEL ELETRICO MONTADO.pdf",
+      "bytes": 786496,
+      "sha256": "9f58628a5beb1956b2fc93b0858787af060957ff3359d82f6363416d42568f34"
+    },
+    {
+      "file": "Diagramas eletricos/102457_SUB CJ MONTAGEM SMART 4.0 - PAINEL ELETRICO MONTADO.pdf",
+      "bytes": 3696374,
+      "sha256": "cbc537bfe73b3a9bdd544160dc63acd63898a0a4da12bf4e618404743a194a61"
+    },
+    {
+      "file": "Diagramas eletricos/102464_SUB CJ EXPEDICAO SMART 4.0 - PAINEL ELETRICO MONTADO.pdf",
+      "bytes": 1057239,
+      "sha256": "25e01d7d5fb634ef7d7f5b6bca18e86ee753bd5170f476d95d127bc72cdd679a"
+    },
+    {
+      "file": "programa do robo/default.installation",
+      "bytes": 2484,
+      "sha256": "e9d8e93eac07e905ad3a50f948f9bb5c824160806324f820453cfe7c2e312359"
+    },
+    {
+      "file": "programa do robo/default.variables",
+      "bytes": 32,
+      "sha256": "017d55753c347233e76abd317ebd1988ba3cf14310516b0596672440ffb3053e"
+    },
+    {
+      "file": "programa do robo/Smart40.script",
+      "bytes": 103116,
+      "sha256": "696a87377cd7ec74cc198c215638913e865fa77039bfd33e0fd570b8d82fea46"
+    },
+    {
+      "file": "programa do robo/Smart40.txt",
+      "bytes": 13555,
+      "sha256": "90e15a4b2e3b97f6fad13f8ab9fc1cb1defaa66b0cf175066d3d12a9ab56a713"
+    },
+    {
+      "file": "TAGO IO/Procedimentos Tago IO N2.pdf",
+      "bytes": 2096604,
+      "sha256": "750411f7a88bc4c213af6a845226b728a99b97c755555ad01cb1e1df7b8278fb"
+    },
+    {
+      "file": "TAGO IO/XL4002MB01.01.01.PT.IT.RevE.pdf",
+      "bytes": 4881306,
+      "sha256": "894b633e02a254b771ee484bfdd57565308f9b557edad6eaff40c3af02d5a85f"
+    }
+  ]
+}

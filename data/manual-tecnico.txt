@@ -1,0 +1,379 @@
+
+PÁGINA 10
+Banco de Ensaios SMART 4.0
+Cap´ ıtulo 5
+Caracter´ ıstica Gerais
+5.1 Dimens˜ oes:
+Tabela de dimens˜ oes
+A B C D E
+1620mm 3050mm 980mm 600mm 900mm
+Tabela 5.1: Dimens˜ oes em mil´ ımetros
+10
+
+
+PÁGINA 11
+Banco de Ensaios SMART 4.0
+5.2 Caracter´ ısticas F´ ısicas:
+ Dimens˜ oes da Bancada ESTOQUE: 600 x 1620 x 980 mm (L x A x P);
+ Dimens˜ oes da Bancada PROCESSO: 600 x 1620 x 980 mm (L x A x P);
+ Dimens˜ oes da Bancada MONTAGEM: 900 x 1620 x 980 mm (L x A x P);
+ Dimens˜ oes da Bancada EXPEDIC ¸˜AO: 600 x 1620 x 980 mm (L x A x P);
+5.3 Caracter´ ısticas El´ etricas:
+ Alimenta¸ c˜ ao: 110/220 Vca
+ Corrente m´ axima: 14A
+ Potˆ encia m´ axima: 3kVA
+ Plug de alimenta¸ c˜ ao: Plugue 2P+N segundo NBR 14136
+ N´ umero de pontos monof´ asicos: 1 (por bancada)
+ Emergˆ encia: 4 (por bancada)
+ Disjuntores termomagn´ eticos: 2 (bipolar, corrente de 10A por bancada)
+ Interruptor Diferencial Residual: 1 (bipolar, corrente de 25A, 30mA por bancada)
+ Estrutura: A¸ co carbono e alum´ ınio anodizado
+5.4 Caracter´ ısticas Funcionais:
+ Programa¸ c˜ ao de Controlador L´ ogico Program´ avel;
+ Conﬁgura¸ c˜ ao de Interface Gr´ aﬁca;
+ Conﬁgura¸ c˜ ao Software Scada;
+ Conﬁgura¸ c˜ ao Software MES;
+ Programa¸ c˜ ao Robˆ o Colaborativo;
+ Sistema de Realidade Aumentada;
+ Sistema de Simula¸ c˜ ao e Comissionamento Virtual
+ Comunica¸ c˜ ao de dados atrav´ es da Rede Industrial;
+ Integra¸ c˜ ao de Tecnologias: CLP, IHM, Rob´ otica, Sistemas de Vis˜ ao, Website...
+5.5 Normas
+ NR10 (Quanto aos riscos el´ etricos ao operador);
+ NR12 (Quanto aos Dispositivos M´ oveis e Sinaliza¸ c˜ ao);
+11
+
+
+PÁGINA 42
+Banco de Ensaios SMART 4.0
+Cap´ ıtulo 7
+Componentes do Kit
+7.1 Bancada Estoque
+Respons´ avel por reservar e disponibilizar a mat´ eria prima que ser´ a utilizada para a fabrica¸ c˜ ao do
+produto ﬁnal.
+7.1.1 Bancada
+A bancada possui os seguintes elementos:
+1 Esteiras
+2 Stopper
+3 Esteira de Giro
+4 Conex˜ ao El´ etrica Esteiras
+5 Cilindro Posicionador
+6 Atuador El´ etrico Armazenador Sobe/Desce
+7 Atuador El´ etrico Armazenador Giro
+42
+
+
+PÁGINA 43
+Banco de Ensaios SMART 4.0
+7.1.2 Compartimento Traseiro
+O compartimento traseiro comporta os seguintes elementos:
+1 Entrada Ar Comprimido
+2 Entrada Alimenta¸ c˜ ao El´ etrica
+3 Seccionadora Geral
+4 Alimenta¸ c˜ ao da Pr´ oxima Bancada
+5 Porta Ethernet RJ-45
+6 V´ avula Manual
+7 Sa´ ıda de Ar para Pr´ oxima Bancada
+8 V´ alvulas
+9 Gerador de V´ acuo
+10 Vacuostato
+11 Filtro Regulador
+12 V´ alvula de bloqueio
+7.1.3 Painel El´ etrico
+O painel el´ etrico comporta os seguintes elementos:
+1 Rel´ es de Interface
+2 Rel´ e de Seguran¸ ca
+3 Disjuntores de Prote¸ c˜ ao
+4 Fonte Chaveada 24Vcc
+5 Distribuidor Alimenta¸ c˜ ao 24Vcc
+6 Drive Eixo dos Atuadores El´ etricos
+7 CLP-Siemens S7-1200
+8 Contator Tripolar
+9 Switch Ethernet 5 Portas
+10 Multimedidor Smart Sense
+11 Client Wi-Fi
+43
+
+
+PÁGINA 44
+Banco de Ensaios SMART 4.0
+7.1.4 Tabela de Comissionamento das IO’s do CLP (S7-1200)
+IO Link
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Antena RFID C/Q1 -
+Entradas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Emergˆ encia OK Ia1 %I0.1
+Alimentador Avan¸ cado Ia2 %I0.2
+Alimentador em posi¸ c˜ ao de entrega Ia3 %I0.3
+Alimentador Recuado Ia4 %I0.4
+Garra Aberta Ia5 %I0.5
+Garra Fechada Ia6 %I0.6
+Posicionador Avan¸ cado Ia7 %I0.7
+Posicionador Recuado Ib0 %I1.0
+Vacuostato Ib1 %I1.1
+Comutador 2 Posi¸ c˜ oes Ib2 %I1.2
+Bot˜ ao Start Ib3 %I1.3
+Bot˜ ao Stop Ib4 %I1.4
+Sa´ ıdas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Avan¸ ca Alimentador Qa0 %Q0.0
+Recua Alimentador Qa1 %Q0.1
+Aciona V´ acuo Qa2 %Q0.2
+Avan¸ ca Cilindro Posicionador Qa3 %Q0.3
+Fecha Garra Qa4 %Q0.4
+Aciona motor esteira 1 e giro Qa5 %Q0.5
+Aciona motor esteira 2 Qa6 %Q0.6
+Aciona valvula 1 do Stopper Qa7 %Q0.7
+Aciona valvula 2 do Stopper Qb0 %Q1.0
+Status Processo do Smart Sense Qb1 %Q1.1
+44
+
+
+PÁGINA 45
+Banco de Ensaios SMART 4.0
+7.2 Bancada Processo
+Respons´ avel pela separa¸ c˜ ao e personaliza¸ c˜ ao das lˆ aminas de acabamento do produto conforme o
+pedido do cliente, as lˆ aminas est˜ ao dispon´ ıveis nas cores: azul, vermelho, branco, preto, amarelo e verde.
+7.2.1 Bancada
+A bancada possui os seguintes elementos:
+1 Esteiras
+2 Conex˜ ao El´ etrica Esteiras
+3 Atuador El´ etrico Eixo X
+4 Atuador El´ etrico Eixo Y
+5 Atuador Pneum´ atico Eixo Z
+6 Magazine das Lˆ aminas
+7 Base para Grava¸ c˜ ao das Lˆ aminas
+45
+
+
+PÁGINA 46
+Banco de Ensaios SMART 4.0
+7.2.2 Compartimento Traseiro
+O compartimento traseiro comporta os seguintes elementos:
+1 Entrada Ar Comprimido
+2 Entrada Alimenta¸ c˜ ao El´ etrica
+3 Seccionadora Geral
+4 Alimenta¸ c˜ ao da Pr´ oxima Bancada
+5 Porta Ethernet RJ-45
+6 V´ avula Manual
+7 Sa´ ıda de Ar para Pr´ oxima Bancada
+8 V´ alvulas
+9 Gerador de V´ acuo
+10 Vacuostato
+11 Filtro Regulador
+12 V´ alvula de bloqueio
+7.2.3 Painel El´ etrico
+O painel el´ etrico comporta os seguintes elementos:
+1 Rel´ es de Interface
+2 Rel´ e de Seguran¸ ca
+3 Disjuntores de Prote¸ c˜ ao
+4 Fonte Chaveada 24Vcc
+5 Distribuidor Alimenta¸ c˜ ao 24Vcc
+6 Drive Eixo dos Atuadores El´ etricos
+7 CLP-Siemens S7-1200
+8 Contator Tripolar
+9 Switch Ethernet 5 Portas
+10 Multimedidor Smart Sense
+11 Client Wi-Fi
+46
+
+
+PÁGINA 47
+Banco de Ensaios SMART 4.0
+7.2.4 Tabela de Comissionamento das IO’s do CLP (S7-1200)
+Entradas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Emergˆ encia Ia1 %I0.1
+Eixo Z Avan¸ cado Ia2 %I0.2
+Eixo Z Recuado Ia3 %I0.3
+Vacuostato Manipulador Ia4 %I0.4
+Vacuostato base de grava¸ c˜ ao Ia5 %I0.5
+Comutador 2 Posi¸ c˜ oes Ia6 %I0.6
+Bot˜ ao Start Ia7 %I0.7
+Bot˜ ao Stop Ib0 %I1.0
+Sa´ ıdas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Avan¸ ca Eixo Z Qa0 %Q0.0
+Aciona V´ acuo Manipulador Qa1 %Q0.1
+Aciona V´ acuo base de grava¸ c˜ ao Qa2 %Q0.2
+Aciona motor esteira 1 e giro Qa3 %Q0.3
+Aciona motor esteira 2 Qa4 %Q0.4
+Status Processo ao Smart Sense Qb1 %Q1.1
+47
+
+
+PÁGINA 48
+Banco de Ensaios SMART 4.0
+7.3 Bancada Montagem
+Respons´ avel por fazer o empilhamento dos andares do Smart Block. Tamb´ em executa o encaixe das
+lˆ aminas personalizadas pela bancada de processo.
+7.3.1 Bancada
+A bancada possui os seguintes elementos:
+1 Esteira
+2 Conex˜ ao El´ etrica Esteiras
+3 Rampa Alimentadora de Smart Block
+4 Magazine de tampa e base de montagem
+5 Robˆ o Colaborativo
+6 Garra Colaborativa
+7 Sistema de vis˜ ao
+8 Base de translado da esteira
+48
+
+
+PÁGINA 49
+Banco de Ensaios SMART 4.0
+7.3.2 Compartimento Traseiro
+O compartimento traseiro comporta os seguintes elementos:
+1 Entrada Ar Comprimido
+2 Entrada Alimenta¸ c˜ ao El´ etrica
+3 Seccionadora Geral
+4 Alimenta¸ c˜ ao da Pr´ oxima Bancada
+5 Porta Ethernet RJ-45
+6 V´ avula Manual
+7 Sa´ ıda de Ar para Pr´ oxima Bancada
+8 V´ alvulas
+9 Gerador de V´ acuo
+10 Vacuostato
+11 Filtro Regulador
+12 V´ alvula de bloqueio
+7.3.3 Painel El´ etrico
+O painel el´ etrico comporta os seguintes elementos:
+1 Rel´ es de Interface
+2 Rel´ e de Seguran¸ ca
+3 Disjuntores de Prote¸ c˜ ao
+4 Fonte Chaveada 24Vcc
+5 Distribuidor Alimenta¸ c˜ ao 24Vcc
+6 CLP-Siemens S7-1200
+7 Interface IO-Link Garra Colaborativa
+8 Contador Tripolar
+9 Switch Ethernet 5 Portas
+10 Multimedidor Smart Sense
+49
+
+
+PÁGINA 50
+Banco de Ensaios SMART 4.0
+7.3.4 Tabela de Comissionamento das IO’s do CLP (S7-1500)
+IO Link
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Antena RFID C/Q1 -
+Remota de Campo C/Q2 -
+Vacuostato C/Q3 -
+Bloco de V´ alvulas C/Q4 -
+Entradas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Emergˆ encia DI1 %I0.1
+Sa´ ıdas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Status Processo ao Smart Sense DQ1 %Q0.0
+50
+
+
+PÁGINA 51
+Banco de Ensaios SMART 4.0
+7.4 Bancada Expedi¸ c˜ ao
+Respons´ avel pelo armazenamento de produtos ﬁnalizados conforme as caracter´ ısticas solicitadas pelos
+clientes.
+7.4.1 Bancada
+A bancada possui os seguintes elementos:
+1 Esteira
+2 Stopper
+3 Esteira de Giro
+4 Conex˜ ao El´ etrica Esteiras
+5 Atuador El´ etrico Eixo X
+6 Atuador El´ etrico Eixo Y
+7 Atuador El´ etrico Giro
+8 Prateleira de produtos ﬁnalizados
+51
+
+
+PÁGINA 52
+Banco de Ensaios SMART 4.0
+7.4.2 Compartimento Traseiro
+O compartimento traseiro comporta os seguintes elementos:
+1 Entrada Ar Comprimido
+2 Entrada Alimenta¸ c˜ ao El´ etrica
+3 Seccionadora Geral
+4 Alimenta¸ c˜ ao da Pr´ oxima Bancada
+5 Porta Ethernet RJ-45
+6 V´ alvula Manual
+7 Sa´ ıda de Ar para Pr´ oxima Bancada
+8 V´ alvulas
+9 Gerador de V´ acuo
+10 Vacuostato
+11 Filtro Regulador
+12 V´ alvula de bloqueio
+7.4.3 Painel El´ etrico
+O painel el´ etrico comporta os seguintes elementos:
+1 Rel´ es de Interface
+2 Rel´ e de Seguran¸ ca
+3 Disjuntores de Prote¸ c˜ ao
+4 Fonte Chaveada 24Vcc
+5 Distribuidor Alimenta¸ c˜ ao 24Vcc
+6 Drive Eixo dos Atuadores El´ etricos
+7 CLP-Siemens S7-1200
+8 Contator Tripolar
+9 Switch Ethernet 5 Portas
+10 Multimedidor Smart Sense
+11 Client Wi-Fi
+52
+
+
+PÁGINA 53
+Banco de Ensaios SMART 4.0
+7.4.4 Tabela de Comissionamento das IO’s do CLP (S7-1200)
+IO Link
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Antena RFID C/Q1 -
+Entradas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Emergˆ encia Ia1 %I0.1
+Alimentador Avan¸ cado Ia2 %I0.2
+Alimentador Recuado Ia3 %I0.3
+Vacuostato Ia4 %I0.4
+Comutador 2 Posi¸ c˜ oes Ia5 %I0.5
+Bot˜ ao Start Ia6 %I0.6
+Bot˜ ao Stop Ia7 %I0.7
+Sa´ ıdas CLP
+Descri¸ c˜ ao Canal do CLP Endere¸ co Software
+Avan¸ ca Alimentador Qa0 %Q0.0
+Aciona V´ acuo Qa1 %Q0.1
+Aciona motor esteira 1 e giro Qa2 %Q0.2
+Aciona motor esteira 2 Qa3 %Q0.3
+Aciona valvula 1 do Stopper Qa4 %Q0.4
+Aciona valvula 2 do Stopper Qa5 %Q0.5
+Status Processo ao Smart Sense Qb1 %Q1.1
+53
+
+
+PÁGINA 54
+Banco de Ensaios SMART 4.0
+7.5 Principais Componentes
+7.5.1 IHM
+Em cada bancada, est´ a dispon´ ıvel um painel de opera¸ c˜ ao para acesso as fun¸ c˜ oes de cada processo. Com
+destaque para a IHM - Interface Homem M´ aquina,´ e poss´ ıvel visualizar status, fazer acionamentos
+manuais e acompanhar o desenvolvimento de cria¸ c˜ ao do produto.
+A IHM possui os seguintes elementos:
+1 IHM (KTP 700)
+2 Chave para Setup
+3 Bot˜ ao de Start
+4 Bot˜ ao de Stop
+5 Bot˜ ao de Emergˆ encia
+6 Bot˜ ao e Indica¸ c˜ ao de Reset
+7 Indica¸ c˜ ao de Seguran¸ ca OK
+8 Indica¸ c˜ ao de Seguran¸ ca Acionada
+7.5.2 Robˆ o Colaborativo UR3e
+Na bancada de montagem, encontra-se o Robˆ o Colaborativo (UR3e) utilizado para o desenvolvimento
+das atividades propostas.
+O robˆ o possui os seguintes elementos:
+1 Peso: 11.2kg / 24.7 lbs
+2 Raio: 500mm / 19.7 ins
+3 Carga ´Util: 3kg / 6.6 lbs
+4 ´Area Ocupada: Ø 128 mm
+5 Liberdade de movimento: 360 º
+´E de extrema importˆ ancia que o robˆ o seja operado dentro dos
+conformes do projeto. A Exsto Labtronix N˜AO se responsabiliza
+por qualquer opera¸ c˜ ao inadequada, feita pelo usu´ ario.
+Visite a se¸ c˜ ao Cuidados durante a opera¸ c˜ ao
+54

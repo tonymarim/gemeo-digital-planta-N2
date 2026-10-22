@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "WebGL",
+    "17 ensaios pelo painel",
+    "saída manual e sensor",
+    "receita 3 andares",
+    "emergência e rearme",
+    "conclusão de pedido",
+    "layout 390px"
+  ]
+}

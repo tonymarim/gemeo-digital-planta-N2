@@ -1,0 +1,11 @@
+import {io} from '../data/catalog.mjs';
+import {writeFileSync,readFileSync,mkdirSync} from 'node:fs';
+import {acceptance} from '../commissioning.mjs';
+const quote=s=>'"'+String(s).replaceAll('"','""')+'"';
+writeFileSync(new URL('../data/io-map.csv',import.meta.url),'\uFEFFestacao;direcao;endereco;id;descricao;classificacao;fonte\n'+io.map(r=>[r.station,r.dir,r.address,r.id,r.label,r.kind,r.source].map(quote).join(';')).join('\n'));
+const robot=JSON.parse(readFileSync(new URL('../data/robot.json',import.meta.url)));
+const report=acceptance(robot);report.sources=JSON.parse(readFileSync(new URL('../data/sources.json',import.meta.url)));
+mkdirSync(new URL('../reports/',import.meta.url),{recursive:true});
+writeFileSync(new URL('../reports/commissioning-latest.json',import.meta.url),JSON.stringify(report,null,2));
+console.log(`${io.length} sinais; ${report.total} ensaios; aprovado: ${report.passed}`);
+if(!report.passed)process.exitCode=1;

@@ -1,0 +1,114 @@
+
+PÁGINA 267
+Rela¸ c˜ ao das entradas, sa´ ıdas e posi¸ c˜ oes das esta¸ c˜ oes
+Estoque:
+267
+
+
+PÁGINA 268
+Processos:
+Montagem:
+268
+
+
+PÁGINA 269
+Expedi¸ c˜ ao:
+269
+
+
+PÁGINA 273
+Ao usar o protocolo S7, o simulador espera receber do CLP uma mensagem com uma estrutura fixa
+e espec´ ıfica. Para que isso aconte¸ ca ´ e necess´ ario criar Data Blocks que tenham um n´ umero espec´ ıfico
+e que a estrutura dentro destes Data Blocks respeitem aquilo que o simulador espera, tendo a mesma
+quantidade de vari´ aveis, com o mesmo tipo e na ordem em que elas s˜ ao esperadas. Nas figuras abaixo
+s˜ ao apresentadas essas estruturas.
+273
+
+
+PÁGINA 274
+Estes DBs est˜ ao dispon´ ıveis em um programa base no Portal do Educador, eles podem ser copiados e
+colados em um novo programa do TIA Portal. Se necess´ ario, ´ e poss´ ıvel criar novamente os Data Blocks,
+por´ em de maneira idˆ entica ao que foi apresentado. Para a cria¸ c˜ ao de um novo Data Block, expanda a
+aba “Program Blocks”, clique duas vezes em “Add new block”. Na nova tela selecione a op¸ c˜ ao de “Data
+Block”, nomeie o DB, selecione a op¸ c˜ ao “Manual”e coloque o n´ umero do DB. Para este exemplo ser´ a
+criado o DB da esta¸ c˜ ao de expedi¸ c˜ ao, que tem como n´ umero 100.
+Depois de criar o DB, clique com o bot˜ ao direito sobre ele e clique em “Properties..”
+Na nova tela, na aba “General”, na se¸ c˜ ao “Attributes”, desmarque a op¸ c˜ ao “Optimized block access”,
+na mensagem que se abre clique em “OK”e depois novamente em “OK”. Isso habilitar´ a a coluna de
+Offset do DB.
+274
+
+
+PÁGINA 281
+Experiˆ encia 3 - Esta¸ c˜ ao de montagem
+Crie um programa que permita a montagem de um bloco de 1 andar, seguindo os passos:
+ As pe¸ cas chegar˜ ao atrav´ es da esteira e dever˜ ao ser paradas pelos stoppers assim que o RFID detectar
+a presen¸ ca de um bloco;
+ O alimentador dever´ a puxar a pe¸ ca at´ e a posi¸ c˜ ao em que o robˆ o ir´ a peg´ a-las;
+ O robˆ o dever´ a pegar a pe¸ ca e colocar na primeira posi¸ c˜ ao do stand de montagem (esquerda);
+ O robˆ o dever´ a pegar trˆ es lˆ aminas, que estar˜ ao no dep´ osito ` a esquerda da esta¸ c˜ ao de processo e
+coloc´ a-las no bloco;
+ O robˆ o dever´ a pegar o bloco e colocar a tampa nele;
+ O robˆ o dever´ a pegar o bloco e coloc´ a-lo na posi¸ c˜ ao para que o alimentador consiga empurr´ a-lo para
+a esteira;
+ O alimentador dever´ a empurrar o bloco para a esteira.
+Experiˆ encia 4 - Esta¸ c˜ ao de expedi¸ c˜ ao
+Crie um programa que permita a inclus˜ ao de pe¸ cas no magazine de expedi¸ c˜ ao, conforme a posi¸ c˜ ao
+escolhida atrav´ es da IHM.
+281
+
+
+PÁGINA 284
+Montagem de pedidos com o simulador
+Este projeto ser´ a composto por uma loja simulada em uma IHM, por onde dever´ a ser poss´ ıvel fazer
+os pedidos que ser˜ ao executados pelo simulador, e tamb´ em por um programa executado em um CLP
+simulado, que executar´ a todo o processo das quatro esta¸ c˜ oes para a montagem do pedido.
+Loja - IHM
+Atrav´ es da loja dever´ a ser poss´ ıvel escolher:
+ O n´ umero de andares (1, 2 ou 3);
+ A cor do bloco de cada um dos andares (Azul, Preto e Vermelho);
+ A cor das lˆ aminas de cada andar.
+DICA: Coloque um bot˜ ao para iniciar a produ¸ c˜ ao somente ap´ os o usu´ ario selecionar todas as in-
+forma¸ c˜ oes do pedido.
+284
+
+
+PÁGINA 285
+Estoque
+Assim que o pedido for feito, o atuador da esta¸ c˜ ao de estoque dever´ a se deslocar at´ e a posi¸ c˜ ao onde
+h´ a uma base na cor escolhida no pedido, pegar a base e coloc´ a-la na posi¸ c˜ ao para que o alimentador a
+empurre para a esteira.
+Este processo deve se repetir para as bases de todos os andares.
+Processo
+Com o pedido feito, o atuador da esta¸ c˜ ao de processo dever´ a se deslocar at´ e a posi¸ c˜ ao das lˆ aminas
+das cores escolhidas no pedido, peg´ a-las e deposit´ a-las no dep´ osito do lado direito, para que assim o robˆ o
+consiga pega-las.
+Este processo deve se repetir para todas as lˆ aminas escolhidas no pedido. Lembre-se que s˜ ao 3 lˆ aminas
+para cada andar.
+ATENC ¸˜AO: Desenvolva uma l´ ogica para que as lˆ aminas do segundo andar sejam pegas pelo atuador
+somente ap´ os as lˆ aminas do primeiro andar terem sido pegas pelo robˆ o, o mesmo vale para as lˆ aminas
+do terceiro andar com rela¸ c˜ ao ` as do segundo. Isso evitar´ a colis˜ oes com robˆ o ou que as lˆ aminas sejam
+confundidas.
+Montagem
+Assim que a base, colocada na esteira pela esta¸ c˜ ao de estoque chegar ao RFID da esta¸ c˜ ao de montagem,
+o alimentador da esta¸ c˜ ao dever´ a puxar a pe¸ ca para a posi¸ c˜ ao de pega do robˆ o.
+O robˆ o ent˜ ao ir´ a:
+ Pegar esta pe¸ ca, coloc´ a-la posi¸ c˜ ao adequada (andar inferior - direita, andar do meio - centro, andar
+superior - esquerda);
+ Pegar as lˆ aminas e mostr´ a-las para a cˆ amera;
+ Colocar as lˆ aminas nos respectivos lugares de cada andar;
+ Pegar a base do andar superior e colocar a tampa;
+ Fazer a montagem dos andares;
+ Pegar o pedido montado e coloc´ a-lo na posi¸ c˜ ao para que o alimentador o empurre para a esteira.
+O alimentador empurrar´ a o pedido montado para a esteira.
+ATENC ¸˜AO: A cor de todas as lˆ aminas dever´ a ser conferida pela cˆ amera.
+DICA: Lembre-se que o trigger da cˆ amera ´ e acionado com transi¸ c˜ ao de subida e, por isso, garanta
+que o trigger esteja desacionado antes de acion´ a-lo novamente.
+Expedi¸ c˜ ao
+Assim que o pedido montado chegar ao RFID da esta¸ c˜ ao de expedi¸ c˜ ao, o atuador dever´ a ir para a
+posi¸ c˜ ao onde o alimentador possa puxar o pedido. Ao pegar o pedido, o atuador dever´ a lev´ a-lo para uma
+posi¸ c˜ ao do magazine de expedi¸ c˜ ao, preenchendo o magazine da esquerda para a direita e de cima para
+baixo.
+Ap´ os o t´ ermino do processo as esta¸ c˜ oes devem retornar ao estado original e esperar pelo pr´ oximo
+pedido.
+285
