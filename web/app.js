@@ -1,8 +1,12 @@
 import {createPlant} from './scene.js';
+import './demo.css';
+import * as browserAPI from './browser-api.js';
+const browserDemo=import.meta.env.VITE_BROWSER_DEMO==='true';
+const localDemo=browserDemo?browserAPI:null;
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state,catalog,plant,report,toastTimer,lastIO='',lastEvent=0;
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,6000);}
-async function api(url,data){const r=await fetch(url,data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{});const result=await r.json();if(!r.ok)throw Error(result.error||r.statusText);return result;}
+async function api(url,data){if(localDemo)return localDemo.request(url,data);const r=await fetch(url,data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{});const result=await r.json();if(!r.ok)throw Error(result.error||r.statusText);return result;}
 async function action(data){try{state=await api('/api/action',data);render();}catch(e){toast(e.message);}}
 const options=(values,selected)=>values.map(c=>`<option value="${c}" ${c===selected?'selected':''}>${c[0].toUpperCase()+c.slice(1)}</option>`).join('');
 function recipeUI(){const old=readRecipe();$('recipe').innerHTML=Array.from({length:Number($('floorCount').value)},(_,i)=>`<div class="recipe-floor"><div class="floor-head"><span class="floor-index">${String(i+1).padStart(2,'0')} / ${i===0?'BASE':'ANDAR'}</span><select aria-label="Cor da base ${i+1}" class="base-color">${options(['azul','vermelho','preto'],old[i]?.color||['azul','vermelho','preto'][i])}</select></div><div class="laminas">${[0,1,2].map(j=>`<label>L${j+1} · ${['Esquerda','Trás','Direita'][j]}<select aria-label="Lâmina ${j+1} do andar ${i+1}" class="lamina-color">${options(Object.keys(catalog.colors),old[i]?.laminas[j]||['azul','amarelo','verde'][j])}</select></label>`).join('')}</div></div>`).join('');}
@@ -17,7 +21,7 @@ function buildIO(){
 const states={ready:'PRONTO',running:'EM CICLO',paused:'PAUSADO',complete:'CONCLUÍDO',manual:'MANUAL',fault:'FALHA',emergency:'EMERGÊNCIA'};
 function render(){
  if(!state)return;const s=state,p=s.phase;
- $('connection').textContent='● Servidor local ativo';$('connection').style.color='';
+ $('connection').textContent=browserDemo?'● Demo no navegador':'● Servidor local ativo';$('connection').style.color='';
  $('phaseLabel').textContent=s.order?p?.label||'Pedido em andamento':s.status==='complete'?'Pedido concluído e armazenado':s.mode==='manual'?'Operação manual dos componentes':'Aguardando pedido';
  $('phaseMeta').textContent=s.order?`${s.order.id} · Etapa ${s.phaseIndex+1} de ${s.phaseCount} · ${s.elapsed.toFixed(1)} s / ${p.duration.toFixed(1)} s nominais`:'Quatro estações · modelo determinístico · sem conexão física';
  $('statusBadge').textContent=states[s.status];$('statusBadge').style.color=s.alarm?'#ffaaa4':'';
@@ -41,6 +45,16 @@ function render(){
  plant?.update(s);
 }
 async function initialize(){
+ if(browserDemo){
+  document.title='Planta N2 · Demo SMART 4.0';
+  document.querySelector('.scene-top .eyebrow').textContent='DEMONSTRAÇÃO / MODELO ISOLADO NO NAVEGADOR';
+  document.querySelector('.brand small').textContent='DEMONSTRAÇÃO DE COMISSIONAMENTO';
+  const back=document.createElement('a');back.href='../';back.textContent='← Outras demos';back.className='portal-back';document.querySelector('.headright').prepend(back);
+  document.querySelectorAll('.source-links a').forEach((a,i)=>{a.href='https://github.com/tonymarim/gemeo-digital-planta-N2/blob/main/'+(i?'data/io-map.csv':'LEIA-ME.md');a.textContent=i?'↗ Mapa de sinais':'↗ Guia e referências';});
+  document.querySelector('a[href="/api/trace"]').addEventListener('click',e=>{e.preventDefault();localDemo.downloadTrace();});
+  const note=document.createElement('p');note.className='demo-note';note.textContent='Demo isolada no navegador: nenhum equipamento conectado. Recarregar reinicia o pedido e o inventário. Os relatórios são baixados no seu dispositivo.';document.querySelector('main').prepend(note);
+  document.querySelector('#help p').textContent='A sessão existe somente neste navegador. Recarregar reinicia a simulação. Exporte as evidências antes de sair; nenhum dado de operação é enviado a servidor.';
+ }
  catalog=await api('/api/catalog');
  $('stationCards').innerHTML=catalog.stations.map((s,i)=>`<button class="station-card" data-station="${s.id}"><span class="number">0${i+1}</span><strong>${s.name}</strong><small>${s.id==='montagem'?'UR3e · SCHUNK EGH':s.id==='estoque'?'Armazenador · 28 posições':s.id==='processo'?'Pórtico XYZ · seis cores':'Armazenador · 12 posições'}</small></button>`).join('');
  $('ioStation').innerHTML=catalog.stations.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');

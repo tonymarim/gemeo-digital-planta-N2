@@ -1,4 +1,4 @@
-import assert from 'node:assert/strict';
+import assert from './checks.mjs';
 import {Twin} from './model.mjs';
 const recipe=n=>Array.from({length:n},(_,i)=>({color:['azul','vermelho','preto'][i],laminas:['azul','amarelo','verde']}));
 const run=(t,predicate,max=40000)=>{for(let i=0;i<max&&!predicate();i++)t.tick(.05);assert.ok(predicate(),'Prazo do ensaio excedido');};

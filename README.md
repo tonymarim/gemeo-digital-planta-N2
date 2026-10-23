@@ -2,6 +2,8 @@
 
 Simulação local da planta didática XL4002: estoque, processo, montagem e expedição. Inclui visualização 3D, receitas de 1–3 andares, operação manual, monitoramento de I/O, injeção de falhas e ensaios de comissionamento virtual.
 
+**Demo pública:** [Planta N2 no navegador](https://tonymarim.github.io/cmvi-demos/n2/). O [portal de demonstrações](https://tonymarim.github.io/cmvi-demos/) mantém o endereço do QR Code anterior e oferece nível, vibração e planta N2. Cada visitante tem sua própria simulação; recarregar reinicia a sessão. Não exige Node.js no dispositivo do visitante.
+
 ![Planta 3D](reports/planta-3d.png)
 
 ## Executar
@@ -51,6 +53,8 @@ npm start
 ```
 
 O servidor e o modelo usam módulos nativos do Node.js. Babylon.js e Vite são necessários apenas para recompilar a interface. Consulte o guia para executar os testes de navegador e reextrair os dados documentais.
+
+`npm run build:demo` gera a versão estática em `demo-dist/`, com caminhos relativos para hospedagem em subpastas. Essa versão executa o mesmo modelo e os 17 ensaios no navegador, sem rotas de servidor `/api`. Os downloads CSV e JSON permanecem locais. O código da demo também está no [repositório do portal](https://github.com/tonymarim/cmvi-demos/tree/main/src/n2).
 
 ## Escopo e fidelidade
 

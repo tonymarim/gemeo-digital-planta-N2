@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4185/",
+  "errors": [],
+  "apiRequests": [],
+  "checks": [
+    "portal com três demos",
+    "17 ensaios no navegador",
+    "relatório JSON",
+    "saída manual e fim de curso",
+    "isolamento de visitantes",
+    "emergência e rearme",
+    "produção de três andares",
+    "CSV com nove inspeções",
+    "layout móvel 390px",
+    "reinício ao recarregar"
+  ]
+}

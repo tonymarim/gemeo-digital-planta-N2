@@ -1,0 +1,12 @@
+import {existsSync} from 'node:fs';
+import {copyFile,mkdir,cp} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const root=path.dirname(fileURLToPath(import.meta.url));
+const local=path.join(root,'node_modules');
+const deps=existsSync(path.join(local,'vite'))?local:path.resolve(root,'../../gemeo_digital_vibracaomotor/node_modules');
+const output=path.resolve(root,process.argv[2]||'demo-dist');
+const {build}=await import(pathToFileURL(path.join(deps,'vite/dist/node/index.js')));
+await build({root:path.join(root,'web'),configFile:false,base:'./',define:{'import.meta.env.VITE_BROWSER_DEMO':'"true"'},resolve:{alias:{'@babylonjs/core':path.join(deps,'@babylonjs/core')}},build:{outDir:output,emptyOutDir:true,chunkSizeWarningLimit:7000}});
+await mkdir(path.join(output,'licenses'),{recursive:true});
+await copyFile(path.join(deps,'@babylonjs/core/license.md'),path.join(output,'licenses/babylon.md'));

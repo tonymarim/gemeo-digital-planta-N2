@@ -4,6 +4,8 @@ Aplicação local executável para explorar o funcionamento documentado da plant
 
 ## Abrir
 
+Para demonstração pública sem instalação, abra https://tonymarim.github.io/cmvi-demos/n2/ . O portal https://tonymarim.github.io/cmvi-demos/ mantém o destino do QR Code anterior. Essa edição executa o modelo somente no navegador: cada visitante tem sua sessão, não há chamadas ao servidor de controle, e recarregar reinicia o inventário. CSV e JSON são baixados no dispositivo; os ensaios não gravam arquivos em servidor. As instruções de execução Node abaixo se referem à edição local.
+
 1. Execute `INICIAR.cmd` nesta pasta. Requer Node.js 22.12 ou superior; o computador usado na entrega já possui Node 22.
 2. Abra **http://127.0.0.1:4173** no Edge ou Chrome com WebGL habilitado.
 3. Mantenha o terminal aberto. Para encerrar, pressione Ctrl+C no terminal.
@@ -98,6 +100,8 @@ Não há informação suficiente nos arquivos fornecidos para afirmar equivalên
 
 - `npm test`: testes de modelo e mapa I/O, sem dependências externas.
 - `npm run build`: recompila a interface. Usa `node_modules` local ou as dependências já disponíveis no projeto vizinho `gemeo_digital_vibracaomotor`. Em outro computador, instale as dependências declaradas no `package.json` antes de compilar. A versão pronta não exige essa etapa.
+- `npm run build:demo`: gera a edição estática em `demo-dist/`. Para publicar em uma pasta específica, use `node build-demo.mjs CAMINHO`. `tools/sync-demo.mjs` sincroniza os fontes para `src/n2/` no checkout do portal; não envia alterações ao GitHub por conta própria.
+- `tests/demo-browser.cjs`: verifica a versão estática, isolamento entre visitantes, operação, falhas, relatórios e ausência de chamadas `/api`. Aceita `DEMO_URL` apontando para a raiz do portal e `PLAYWRIGHT_PATH`.
 - `tools/extract.py`: requer Python com pypdf. Reextrai os dados das fontes da pasta irmã `N2/`.
 - `tests/browser.cjs`: requer Playwright e Edge; pode receber `PLAYWRIGHT_PATH`. O caminho padrão é o runtime do ambiente usado na entrega. Execute em uma instância recém-iniciada do servidor.
 
