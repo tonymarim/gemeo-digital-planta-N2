@@ -16,6 +16,12 @@ Se a porta estiver ocupada por uma instância deste projeto, use a instância j�
 
 ## Uso
 
+### Visualização e qualidade
+
+A roda do mouse aplica zoom proporcional e gradual; o gesto de pinça também tem sensibilidade reduzida. Use Geral para reenquadrar a planta. A rolagem sobre a área 3D controla a câmera e não desloca a página.
+
+Qualidade Alta é o padrão: resolução ajustada à densidade da tela (até 2×, com limite de três milhões de pixels), antisserrilhamento, superfícies curvas mais suaves e sombras. Qualidade Econômica usa resolução nativa e desativa as sombras para reduzir o custo gráfico. Os pontos do programa continuam orientando a movimentação visual do robô; a linha de trajetória TCP não é desenhada automaticamente.
+
 ### Operação automática
 
 - Escolha 1, 2 ou 3 andares, a cor da base de cada andar e as três lâminas: L1 esquerda, L2 traseira, L3 direita.
@@ -64,7 +70,7 @@ A rejeição de visão bloqueia a sequência antes da inserção. Após corrigir
 | Montagem | MU pp. 48–50/54, GE pp. 284–285, Smart40.script e Posições_Robô.jpeg. UR3e ilustrativo, garra EGH, câmera, três berços, tampas, rampa e transferência. B3 à esquerda, B1 à direita conforme fotografia. |
 | Expedição | MU pp. 51–53, GE p. 269. 12 posições (3×4), três eixos ilustrados; ordem esquerda-direita, cima-baixo. |
 | I/O físico | Transcrição das tabelas MU pp. 44, 47, 50 e 53. Diagrama 102457 confirma CPU 6ES7512-1CK00-0AB0, resolvendo a divergência S7-1200/S7-1500 no manual. |
-| Robô | 106 pares de poses p/q e 23 sequências de movimentos extraídos automaticamente do script. A tela desenha o caminho dos pontos p no referencial assumido da bancada. Elos/juntas são ilustrativos; não há cinemática inversa, orientação TCP, interpolação UR real ou cálculo de colisões. |
+| Robô | 106 pares de poses p/q e 23 sequências de movimentos extraídos automaticamente do script. A representação se move pelos pontos p no referencial assumido da bancada. Elos/juntas são ilustrativos; não há cinemática inversa, orientação TCP, interpolação UR real ou cálculo de colisões. |
 | Payload | Script e imagem: 1,090 kg, centro de gravidade [−2, 5, 62] mm. Registrados como referência, sem cálculo dinâmico. |
 | Tempos | Padrões assumidos: atuadores 1,5 s; transporte 4 s; pneumática 0,45 s; robô 2 s/comando; timeout adicional 5 s. Esperas originais são extraídas em `robot.json`, mas não são aplicadas como temporização do controlador. |
 | Sensores | Modelo lógico com fim de curso, resposta de vácuo e trigger de visão. Sem óptica, vazão, pressão, histerese, ruído ou detecção física contínua de contato. Vácuo manual confirma capacidade de sucção, sem prova de peça capturada. |

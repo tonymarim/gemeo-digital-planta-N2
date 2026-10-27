@@ -23,6 +23,7 @@ A versão compilada está em `dist/`: não é necessário instalar dependências
 ## Recursos
 
 - Quatro estações em 3D, com navegação e seleção de vistas.
+- Zoom gradual, renderização em alta densidade, antisserrilhamento, sombras e opção de qualidade econômica. A linha de trajetória TCP não é exibida automaticamente.
 - Receitas de um a três andares, três lâminas por andar, inspeção, tampa e expedição.
 - 73 sinais: 52 com endereços documentados e 21 lógicos.
 - 106 poses e 23 comandos extraídos do programa de robô fornecido.
@@ -36,6 +37,7 @@ A versão compilada está em `dist/`: não é necessário instalar dependências
 - [Mapa I/O](data/io-map.csv)
 - [Relatório dos ensaios](reports/commissioning-latest.json)
 - [Resultado do teste de navegador](reports/browser.json)
+- [Verificação de zoom e qualidade gráfica](reports/graphics-browser.json)
 - [Pacote ZIP da entrega](entrega/N2-gemeo-digital-local.zip)
 
 ## Testar e desenvolver

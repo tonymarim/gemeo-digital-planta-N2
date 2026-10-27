@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4185/n2/",
+  "high": {
+    "width": 2106,
+    "height": 876,
+    "cssWidth": 1053,
+    "cssHeight": 438
+  },
+  "economy": {
+    "width": 1053,
+    "height": 438,
+    "cssWidth": 1053,
+    "cssHeight": 438
+  },
+  "zoomChangePercent": 0.85,
+  "errors": [],
+  "checks": [
+    "resolução DPR2",
+    "qualidade econômica em resolução nativa",
+    "zoom gradual por roda",
+    "roda não rola a página",
+    "robô em movimento e parado sem trajetória automática",
+    "layout móvel"
+  ]
+}
