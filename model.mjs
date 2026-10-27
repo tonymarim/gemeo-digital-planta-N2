@@ -92,23 +92,24 @@ export class Twin {
   add('transportFinal','Transportar produto até RFID de expedição','expedicao',{duration:this.config.transportSeconds,required:['expedicao.rfid']});
   add('expPick','Coletar produto · posição 14','expedicao',{target:14,required:['expedicao.vacuumOK','expedicao.feedExtended']});
   add('expStore',`Armazenar produto · posição ${rack+1}`,'expedicao',{target:rack+1,rack});
+  add('expHome','Recolher elevador · Home 13','expedicao',{target:13,rack});
   return p;
  }
  start(recipe){
   if(this.mode!=='auto')throw Error('Selecione o modo automático.');
   if(this.alarm||!this.gate())throw Error('Rearme e confirme os permissivos antes da partida.');
   if(this.status==='running')throw Error('Ciclo já em andamento.');
-  if(this.order){if(this.status!=='paused')throw Error('Pedido ativo.');this.status='running';this.applyPhase();this.log('RESUME','Ciclo retomado.');return;}
+  if(this.order){if(this.status!=='paused')throw Error('Pedido ativo.');this.status='running';this.applyPhase(true);this.log('RESUME','Ciclo retomado.');return;}
   if(!Array.isArray(recipe)||recipe.length<1||recipe.length>3||recipe.some(f=>!['azul','vermelho','preto'].includes(f.color)||!Array.isArray(f.laminas)||f.laminas.length!==3||f.laminas.some(c=>!Object.hasOwn(colors,c))))throw Error('Receita inválida: 1–3 andares, base azul/vermelha/preta e três lâminas por andar.');
   const plan=this.makePlan(recipe); this.plan=plan; this.phaseIndex=0;this.elapsed=0;
   this.order={id:'N2-'+String(this.completed.length+this.scrapped.length+1).padStart(4,'0'),recipe:structuredClone(recipe),started:this.time,bases:[],inserted:[],consumedLaminas:0,inspected:0,lid:false,location:'estoque'};
   this.status='running';this.log('START','Pedido '+this.order.id+' iniciado.');this.applyPhase();
  }
  abort(){if(this.order){this.scrapped.push({...this.order,aborted:this.time});this.log('ABORT','Pedido abortado. Insumos já consumidos registrados como refugo; não retornam ao estoque.');}this.order=null;this.plan=[];this.phaseIndex=-1;this.elapsed=0;this.clearOutputs();this.robot.busy=false;this.robot.ready=!this.alarm;for(const a of Object.values(this.axes))a.busy=false;this.status=this.alarm?'fault':'ready';}
- applyPhase(){
+ applyPhase(resume=false){
   const p=this.phase;if(!p)return;this.clearOutputs();this.q[p.station+'.status']=true;
   const q=(s,...keys)=>keys.forEach(k=>this.q[s+'.'+k]=true);
-  if(p.target&&this.axes[p.station])this.axes[p.station]={...this.axes[p.station],target:p.target,busy:true,t:0};
+  if(p.target&&this.axes[p.station]&&!resume)this.axes[p.station]={...this.axes[p.station],target:p.target,busy:true,t:0};
   if(p.type==='stockTake')q('estoque','vacuum','grip','position');
   if(p.type==='stockDeliver')q('estoque','vacuum','grip');
   if(p.type==='feed')q('estoque','feedAdvance');
@@ -119,7 +120,7 @@ export class Twin {
   if(p.type==='transportFinal')for(const s of ['montagem','expedicao'])q(s,'belt1');
   if(p.type==='expPick')q('expedicao','feedAdvance','vacuum');
   if(p.type==='expStore')q('expedicao','vacuum');
-  if(p.cmd)this.robot={command:p.cmd,busy:true,ready:false,progress:0,frame:0};else this.robot={...this.robot,busy:false,ready:true};
+  if(p.cmd){if(!resume)this.robot={command:p.cmd,busy:true,ready:false,progress:0,frame:0};}else this.robot={...this.robot,busy:false,ready:true};
   this.log('PHASE',`${this.phaseIndex+1}/${this.plan.length} · ${p.label}`);
  }
  finishPhase(){
@@ -134,7 +135,8 @@ export class Twin {
   if(p.stack)o.stacked=true;
   if(p.unload)o.location='esteira';
   if(p.type==='transportFinal')o.location='expedicao';
-  if(p.type==='expStore'){
+  if(p.type==='expStore'){o.storedRack=p.rack;o.location='rack';}
+  if(p.type==='expHome'){
    const done={...structuredClone(o),finished:this.time,cycleSeconds:+(this.time-o.started).toFixed(2),rack:p.rack+1};
    this.rack[p.rack]=done;this.completed.push(done);this.log('COMPLETE',`${o.id} armazenado na posição ${p.rack+1}. ${o.inspected} lâminas inspecionadas.`);
    this.order=null;this.status='complete';this.clearOutputs();this.robot.busy=false;this.robot.ready=true;this.elapsed=0;return;

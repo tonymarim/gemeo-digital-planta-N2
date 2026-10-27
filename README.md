@@ -28,6 +28,7 @@ A versão compilada está em `dist/`: não é necessário instalar dependências
 - 73 sinais: 52 com endereços documentados e 21 lógicos.
 - 106 poses e 23 comandos extraídos do programa de robô fornecido.
 - Operação manual, forças de entrada, falhas, rearme e execução por etapas.
+- Bases, lâminas, tampa e montagem acompanham seus portadores durante as transferências; os apoios dos magazines, garra e elevadores são explícitos.
 - 17 ensaios funcionais no painel e um teste adicional do mapa I/O.
 - Rastreio CSV e relatório de comissionamento JSON.
 
@@ -38,6 +39,7 @@ A versão compilada está em `dist/`: não é necessário instalar dependências
 - [Relatório dos ensaios](reports/commissioning-latest.json)
 - [Resultado do teste de navegador](reports/browser.json)
 - [Verificação de zoom e qualidade gráfica](reports/graphics-browser.json)
+- [Verificação das peças na garra e no elevador](reports/payload-browser.json)
 - [Pacote ZIP da entrega](entrega/N2-gemeo-digital-local.zip)
 
 ## Testar e desenvolver
@@ -60,7 +62,7 @@ O servidor e o modelo usam módulos nativos do Node.js. Babylon.js e Vite são n
 
 ## Escopo e fidelidade
 
-Esta versão realiza **simulação e comissionamento do modelo local**. Não está conectada a CLPs, robô, MES ou serviços externos. Geometria sem cotas e tempos são aproximações; o robô reproduz pontos de percurso com elos ilustrativos, sem cinemática UR, dinâmica ou validação de colisões. Não equivale a uma réplica física calibrada nem valida segurança funcional.
+Esta versão realiza **simulação e comissionamento do modelo local**. Não está conectada a CLPs, robô, MES ou serviços externos. Geometria sem cotas e tempos são aproximações; no automático, o robô usa trajetos didáticos entre os pontos de contato da geometria. Os comandos manuais reproduzem os pontos extraídos. Não há cinemática UR, dinâmica ou validação de colisões. Não equivale a uma réplica física calibrada nem valida segurança funcional.
 
 Os manuais e demais anexos originais do fabricante **não estão neste repositório**. Para usar os links de consulta no aplicativo e a extração documental, coloque a pasta `N2` ao lado da pasta do projeto, conforme o guia. A simulação funciona sem esses anexos; seus hashes e as referências técnicas usadas estão em `data/`.
 

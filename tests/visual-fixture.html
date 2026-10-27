@@ -1,0 +1,9 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Verificação de transporte das peças</title><style>html,body{margin:0;background:#d0dce4}canvas{width:1200px;height:650px;display:block}</style><canvas id="plant"></canvas><script type="module">
+import {createPlant} from '../web/scene.js';
+import {Twin} from '../model.mjs';
+import {io,stations,colors,fidelity} from '../data/catalog.mjs';
+import robot from '../data/robot.json';
+const model=new Twin(robot),plant=createPlant(document.getElementById('plant'),{io,stations,colors,fidelity,robot},()=>{});
+plant.update(model.state());
+window.visualTest={model,plant};
+</script></html>

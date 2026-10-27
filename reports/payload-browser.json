@@ -1,0 +1,391 @@
+{
+  "passed": true,
+  "errors": [],
+  "initialContacts": {
+    "stockMaxGap": 9.05990600319484e-8,
+    "laminaMaxGap": 3.385543823064552e-8
+  },
+  "samples": [
+    {
+      "stage": {
+        "type": "stockDeliver",
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "stock",
+          "parent": "garfo estoque",
+          "position": [
+            -1.180400013923645,
+            1.2390000820159912,
+            0.002528761513531208
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "robot",
+        "cmd": 1,
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "robot",
+          "parent": "SCHUNK EGH",
+          "position": [
+            0.3751465082168579,
+            1.2450000047683716,
+            -0.26798951625823975
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "laminaDeliver",
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        }
+      ],
+      "lamina": {
+        "name": "lâmina manipulada",
+        "owner": "process",
+        "parent": "ventosa processo",
+        "position": [
+          -0.21629630029201508,
+          1.1200000047683716,
+          -0.04962962865829468
+        ]
+      },
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "inspect",
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        }
+      ],
+      "lamina": {
+        "name": "lâmina manipulada",
+        "owner": "robot",
+        "parent": "SCHUNK EGH",
+        "position": [
+          0.5799999833106995,
+          1.274999976158142,
+          -0.05000000074505806
+        ]
+      },
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "robot",
+        "cmd": 9,
+        "progress": 0.6
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        }
+      ],
+      "lamina": {
+        "name": "lâmina manipulada",
+        "owner": "robot",
+        "parent": "SCHUNK EGH",
+        "position": [
+          0.5259999632835388,
+          1.010203242301941,
+          0.28999999165534973
+        ]
+      },
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "robot",
+        "cmd": 18,
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        },
+        {
+          "name": "bloco montagem 1",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.3799999952316284,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        },
+        {
+          "name": "bloco montagem 2",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.1899999976158142,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": {
+        "name": "tampa manipulada",
+        "owner": "robot",
+        "parent": "SCHUNK EGH",
+        "position": [
+          0.03943140432238579,
+          1.2450000047683716,
+          0.28999999165534973
+        ]
+      },
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "robot",
+        "cmd": 20,
+        "progress": 0.68
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            0.9635000228881836,
+            0.28999999165534973
+          ]
+        },
+        {
+          "name": "bloco montagem 1",
+          "owner": "fixture",
+          "parent": null,
+          "position": [
+            0.5699999928474426,
+            1.0134999752044678,
+            0.28999999165534973
+          ]
+        },
+        {
+          "name": "bloco montagem 2",
+          "owner": "robot",
+          "parent": "SCHUNK EGH",
+          "position": [
+            0.1899999976158142,
+            0.9843518137931824,
+            0.28999999165534973
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "robot",
+        "cmd": 22,
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "robot",
+          "parent": "SCHUNK EGH",
+          "position": [
+            0.5448534488677979,
+            1.1480000019073486,
+            0.2179895043373108
+          ]
+        },
+        {
+          "name": "bloco montagem 1",
+          "owner": "robot",
+          "parent": "SCHUNK EGH",
+          "position": [
+            0.5448534488677979,
+            1.1979999542236328,
+            0.2179895043373108
+          ]
+        },
+        {
+          "name": "bloco montagem 2",
+          "owner": "robot",
+          "parent": "SCHUNK EGH",
+          "position": [
+            0.5448534488677979,
+            1.247999906539917,
+            0.2179895043373108
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "expStore",
+        "progress": 0.55
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "expedition",
+          "parent": "garfo expedição",
+          "position": [
+            0.9227333068847656,
+            1.2626934051513672,
+            -0.008000001311302185
+          ]
+        },
+        {
+          "name": "bloco montagem 1",
+          "owner": "expedition",
+          "parent": "garfo expedição",
+          "position": [
+            0.9227333068847656,
+            1.3126933574676514,
+            -0.008000001311302185
+          ]
+        },
+        {
+          "name": "bloco montagem 2",
+          "owner": "expedition",
+          "parent": "garfo expedição",
+          "position": [
+            0.9227333068847656,
+            1.3626933097839355,
+            -0.008000001311302185
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    },
+    {
+      "stage": {
+        "type": "expHome",
+        "progress": 0.5
+      },
+      "bases": [
+        {
+          "name": "bloco montagem 0",
+          "owner": "rack",
+          "parent": null,
+          "position": [
+            0.8199999928474426,
+            1.4359999895095825,
+            0.25999999046325684
+          ]
+        },
+        {
+          "name": "bloco montagem 1",
+          "owner": "rack",
+          "parent": null,
+          "position": [
+            0.8199999928474426,
+            1.4859999418258667,
+            0.25999999046325684
+          ]
+        },
+        {
+          "name": "bloco montagem 2",
+          "owner": "rack",
+          "parent": null,
+          "position": [
+            0.8199999928474426,
+            1.5360000133514404,
+            0.25999999046325684
+          ]
+        }
+      ],
+      "lamina": null,
+      "lid": null,
+      "contacts": {
+        "stockMaxGap": 9.05990600319484e-8,
+        "laminaMaxGap": 3.385543823064552e-8
+      }
+    }
+  ]
+}

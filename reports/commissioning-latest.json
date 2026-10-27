@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-22T14:06:28.143Z",
+  "timestamp": "2026-10-27T01:32:35.225Z",
   "scope": "Ensaios do modelo local isolado; não validam PLC, trajetória física ou segurança funcional.",
   "passed": true,
   "total": 17,
@@ -8,7 +8,7 @@
       "name": "Receita 1 andar(es): conservação de peças, inspeção e expedição",
       "passed": true,
       "evidence": {
-        "cycleSeconds": 54.6,
+        "cycleSeconds": 56.1,
         "bases": 1,
         "inspections": 3,
         "robotCommands": 4
@@ -18,7 +18,7 @@
       "name": "Receita 2 andar(es): conservação de peças, inspeção e expedição",
       "passed": true,
       "evidence": {
-        "cycleSeconds": 100.15,
+        "cycleSeconds": 101.65,
         "bases": 2,
         "inspections": 6,
         "robotCommands": 8
@@ -28,7 +28,7 @@
       "name": "Receita 3 andar(es): conservação de peças, inspeção e expedição",
       "passed": true,
       "evidence": {
-        "cycleSeconds": 143.7,
+        "cycleSeconds": 145.2,
         "bases": 3,
         "inspections": 9,
         "robotCommands": 12
@@ -105,14 +105,6 @@
       "evidence": "Nove bordas de subida e nove inspeções."
     }
   ],
-  "configuration": {
-    "motionSeconds": 1.5,
-    "transportSeconds": 4,
-    "pneumaticSeconds": 0.45,
-    "timeoutSeconds": 5,
-    "robotSeconds": 2
-  },
-  "note": "Os testes usam configuração padrão isolada; configuração da sessão anexada apenas como contexto.",
   "sources": [
     {
       "file": "Aplicativos.pdf",

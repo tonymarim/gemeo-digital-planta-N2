@@ -20,15 +20,18 @@ Se a porta estiver ocupada por uma instância deste projeto, use a instância j�
 
 A roda do mouse aplica zoom proporcional e gradual; o gesto de pinça também tem sensibilidade reduzida. Use Geral para reenquadrar a planta. A rolagem sobre a área 3D controla a câmera e não desloca a página.
 
-Qualidade Alta é o padrão: resolução ajustada à densidade da tela (até 2×, com limite de três milhões de pixels), antisserrilhamento, superfícies curvas mais suaves e sombras. Qualidade Econômica usa resolução nativa e desativa as sombras para reduzir o custo gráfico. Os pontos do programa continuam orientando a movimentação visual do robô; a linha de trajetória TCP não é desenhada automaticamente.
+Qualidade Alta é o padrão: resolução ajustada à densidade da tela (até 2×, com limite de três milhões de pixels), antisserrilhamento, superfícies curvas mais suaves e sombras. Qualidade Econômica usa resolução nativa e desativa as sombras para reduzir o custo gráfico. No automático, os trajetos didáticos coincidem com os apoios da geometria reconstruída; no manual, a movimentação usa os pontos extraídos do programa. A linha de trajetória TCP não é desenhada automaticamente.
+
+As peças têm um portador visual explícito: estoque/ventosa, esteira, garra, berço, garfo de expedição ou prateleira. A mesma base permanece visível durante a pega e o transporte. Lâminas acompanham a ventosa e a garra até a inserção; a montagem acompanha o garfo durante a armazenagem. A transferência para o apoio fixo ocorre antes de abrir a garra ou recolher o elevador. Os contatos são geométricos; não constituem uma simulação física de atrito, gravidade ou força de aperto.
 
 ### Operação automática
 
 - Escolha 1, 2 ou 3 andares, a cor da base de cada andar e as três lâminas: L1 esquerda, L2 traseira, L3 direita.
 - Clique em **Iniciar ciclo**. O modelo valida bases, lâminas, tampa e uma vaga de expedição antes de reservar o plano.
-- Acompanhe a etapa atual, movimentos, I/O, inventário e eventos. Pausar desliga as saídas; Retomar reaplica a etapa. **Uma etapa** executa até a próxima transição e pausa novamente, sem ignorar intertravamentos ou timeout.
+- Acompanhe a etapa atual, movimentos, I/O, inventário e eventos. Pausar desliga as saídas; Retomar mantém a posição e o progresso da etapa. Rearmar reinicializa o tempo da etapa corrente. **Uma etapa** executa até a próxima transição e pausa novamente, sem ignorar intertravamentos ou timeout.
 - O modelo executa os andares em sequência. Aplica a tampa em B3, usa comando 19 para dois andares ou 20 para três; retira pelo comando 21 para um andar e 22 para dois/três.
 - O produto vai à primeira vaga livre da expedição. **Retirar produtos** libera o magazine e preserva o histórico. **Repor insumos** repõe o estoque didático, sem alterar pedidos concluídos.
+- Depois de apoiar a montagem na prateleira, o elevador retorna à posição Home 13; o pedido é concluído ao terminar esse retorno.
 - Abortar registra o pedido como refugo. Insumos já consumidos não voltam artificialmente ao estoque.
 
 Estoque inicial assumido: 10 bases azuis, 9 vermelhas e 9 pretas nas 28 posições; 30 lâminas de cada cor e 12 tampas. Isso é uma condição didática, não uma leitura do equipamento. O manual lista 40 bases no kit; esse número não é a capacidade de 28 posições do magazine do guia.
@@ -56,7 +59,7 @@ Em **Comissionamento**, injete perda de ar, vácuo, obstrução, visão NOK ou f
 
 A rejeição de visão bloqueia a sequência antes da inserção. Após corrigir, a inspeção pode ser repetida; o modelo não descarta automaticamente a lâmina nem calcula a interação de força do comando 8.
 
-**Executar ensaios** cria instâncias isoladas com a configuração padrão. Verifica 17 cenários; não altera o pedido em curso. O relatório JSON é salvo em `reports/commissioning-latest.json` e pode ser baixado pelo painel. A configuração da sessão é anexada como contexto, não aplicada aos ensaios. O teste adicional de unicidade do mapa I/O resulta em **18 testes de código**.
+**Executar ensaios** cria instâncias isoladas com a configuração padrão. Verifica 17 cenários; não altera o pedido em curso. O relatório JSON é salvo em `reports/commissioning-latest.json` e pode ser baixado pelo painel. A configuração da sessão é anexada como contexto, não aplicada aos ensaios. A suíte de código contém esses cenários, a unicidade do mapa I/O e sete regressões de continuidade/apoio das peças: **25 testes**. `tests/payload-browser.cjs` verifica no renderizador os portadores, posições e apoios durante um ciclo de três andares.
 
 **Exportar CSV** salva o rastreio da sessão (até 4.000 eventos). A tela mostra os 120 últimos. A sessão de produção é mantida na memória: reiniciar o servidor reinicializa o inventário e o histórico. Exporte as evidências antes de encerrar. Relatórios salvos em disco permanecem disponíveis.
 
@@ -70,7 +73,7 @@ A rejeição de visão bloqueia a sequência antes da inserção. Após corrigir
 | Montagem | MU pp. 48–50/54, GE pp. 284–285, Smart40.script e Posições_Robô.jpeg. UR3e ilustrativo, garra EGH, câmera, três berços, tampas, rampa e transferência. B3 à esquerda, B1 à direita conforme fotografia. |
 | Expedição | MU pp. 51–53, GE p. 269. 12 posições (3×4), três eixos ilustrados; ordem esquerda-direita, cima-baixo. |
 | I/O físico | Transcrição das tabelas MU pp. 44, 47, 50 e 53. Diagrama 102457 confirma CPU 6ES7512-1CK00-0AB0, resolvendo a divergência S7-1200/S7-1500 no manual. |
-| Robô | 106 pares de poses p/q e 23 sequências de movimentos extraídos automaticamente do script. A representação se move pelos pontos p no referencial assumido da bancada. Elos/juntas são ilustrativos; não há cinemática inversa, orientação TCP, interpolação UR real ou cálculo de colisões. |
+| Robô | 106 pares de poses p/q e 23 sequências de movimentos extraídos automaticamente do script. O modo manual usa os pontos p no referencial assumido da bancada. No automático, trajetos didáticos ligam os pontos de contato do modelo para manter a peça solidária à garra. Elos/juntas são ilustrativos; não há cinemática inversa, orientação TCP calibrada, interpolação UR real ou cálculo de colisões. |
 | Payload | Script e imagem: 1,090 kg, centro de gravidade [−2, 5, 62] mm. Registrados como referência, sem cálculo dinâmico. |
 | Tempos | Padrões assumidos: atuadores 1,5 s; transporte 4 s; pneumática 0,45 s; robô 2 s/comando; timeout adicional 5 s. Esperas originais são extraídas em `robot.json`, mas não são aplicadas como temporização do controlador. |
 | Sensores | Modelo lógico com fim de curso, resposta de vácuo e trigger de visão. Sem óptica, vazão, pressão, histerese, ruído ou detecção física contínua de contato. Vácuo manual confirma capacidade de sucção, sem prova de peça capturada. |
@@ -93,6 +96,7 @@ Não há informação suficiente nos arquivos fornecidos para afirmar equivalên
 | `model.mjs` | Estado determinístico, pedidos, sensores, falhas, recursos e intertravamentos. |
 | `server.mjs` | Servidor HTTP local e relógio fixo de 50 ms. |
 | `web/` | Interface e geometria paramétrica Babylon.js. |
+| `web/visual-state.mjs` | Apoios, trajetos didáticos e portador de cada peça durante o ciclo. |
 | `dist/` | Aplicação pronta para uso, bibliotecas incluídas. |
 | `data/catalog.mjs` | Sinais documentados/lógicos e rastreabilidade. |
 | `data/robot.json` | Poses e comandos extraídos; não é um programa de robô executável. |
