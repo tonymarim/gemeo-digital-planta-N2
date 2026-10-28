@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-28",
+  "referenceDirectory": "X:\\Imagens\\N2",
+  "references": [
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.51.jpeg",
+      "sha256": "7f31e8fa26aaa70d71c8767676cd6c6ccce7635b4252417628fb70f3bb20fabb",
+      "bytes": 178991
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.52 (1).jpeg",
+      "sha256": "e12401134ddbe8773b7c39f24ba23ab3985edc7059e943dd95748939eba80a66",
+      "bytes": 174980
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.52 (2).jpeg",
+      "sha256": "e268183b12222863a9dd3c0b1ce0be069d566d1ced64a1bfeaab9dadf05147d5",
+      "bytes": 210135
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.52.jpeg",
+      "sha256": "f317e17aab677255c53be9d9f24d85754f25b9a4f87e2b8299484da684086e0b",
+      "bytes": 196823
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.53 (1).jpeg",
+      "sha256": "73ff17796df20ad24cc1db94a33681b938a4486bead9c67473faddc26ff3d041",
+      "bytes": 172887
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.53 (2).jpeg",
+      "sha256": "fc25abc11fe8b2293aa04893a399b026ae5fe75db16aeb5376eaf1a457ff4417",
+      "bytes": 190392
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.53.jpeg",
+      "sha256": "a49a3d46bd67e8b89c51c1e5d300eaab46b2fa547c05caac9d9488251c21b5a8",
+      "bytes": 177446
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.54 (1).jpeg",
+      "sha256": "85df274f112419bd4e803535fcfdafe48757087ea615a901aca94e624401095e",
+      "bytes": 87982
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.54 (2).jpeg",
+      "sha256": "7f2eecdc35817ea6728e960640211276da9576ba59bc0f3bc0496360dbc753f1",
+      "bytes": 51533
+    },
+    {
+      "file": "WhatsApp Image 2026-10-28 at 17.55.54.jpeg",
+      "sha256": "c1dc64d4ecb5b7bafda009f227803452c51c572f84175d3995b8c68ff6a41b28",
+      "bytes": 77282
+    }
+  ],
+  "observed": [
+    "Piso amadeirado e rodapés",
+    "Divisória de vidro, caixilhos e faixas vermelhas",
+    "TV, janela, ar condicionado, quadro elétrico, rack e nobreak",
+    "Consoles inclinados, portas escuras, perfis e motores",
+    "Articulações azul claro e cabeamento do robô"
+  ],
+  "approximations": [
+    "Dimensões e posição dos elementos da sala estimadas visualmente",
+    "Materiais e texturas procedurais, sem fotogrametria",
+    "IHM ilustrativa; não reproduz programa Siemens",
+    "Cinemática e movimento do robô continuam didáticos",
+    "Estoque inicial didático preservado; cores por posição não reproduzem a foto"
+  ],
+  "embeddedPhotos": false
+}

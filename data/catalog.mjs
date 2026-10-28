@@ -34,7 +34,7 @@ export const fidelity=[
  ['Robô','Extraído + modelo visual','23 comandos e poses p/q extraídos de Smart40.script. Manual reproduz pontos; automático usa contatos da geometria reconstruída para manter as peças na garra. Não executa URScript nem resolve colisão ou dinâmica UR.'],
  ['Mapa do simulador original','Divergente','GE p. 268 enumera 25 comandos; Smart40.script contém 23. Este projeto utiliza os 23 do script físico.'],
  ['PLC de montagem','Conferido','MU p. 49 diz S7-1200; p. 50 diz S7-1500. Esquema 102457 contém 6ES7512-1CK00-0AB0.'],
- ['Forma e posições locais','Aproximação','Reconstrução paramétrica das ilustrações. Sem CAD, cotas de peças, transformação da base do robô ou metrologia.'],
+ ['Equipamento e ambiente','Fotos + aproximação','Revisão visual pelas dez fotos de 28/10/2026: gabinetes, consoles, esteiras, cabos e laboratório. Dimensões da sala estimadas; texturas procedurais. Inventário em data/visual-references.json. Sem CAD, fotogrametria ou metrologia.'],
  ['Tempos e sensores','Modelo ajustável','Tempos, tolerâncias, detecção, dinâmica pneumática e estoque inicial são hipóteses de simulação, sem calibração física.'],
  ['Segurança e conexão','Somente virtual','Intertravamentos didáticos; não validam funções de segurança. Nenhum CLP, robô, MES ou serviço externo conectado.'],
  ['Receitas','Documentado + decisão','1–3 andares, três lâminas por andar, inspeção de todas. GE pp. 284–285. Sequência serial e bloqueio na rejeição são decisões deste modelo.']

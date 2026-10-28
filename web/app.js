@@ -70,6 +70,7 @@ async function initialize(){
  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{plant?.view(b.dataset.view);document.querySelectorAll('[data-view]').forEach(v=>v.classList.toggle('selected',v===b));});
  document.querySelectorAll('[data-station]').forEach(b=>b.onclick=()=>{plant?.view(b.dataset.station);$('ioStation').value=b.dataset.station;buildIO();});
  let showLabels=true;$('labelsBtn').onclick=()=>plant?.labels(showLabels=!showLabels);
+ let showRoom=true;$('roomBtn').onclick=()=>{showRoom=!showRoom;plant?.environment(showRoom);$('roomBtn').textContent=showRoom?'Sala visível':'Sala oculta';$('roomBtn').setAttribute('aria-pressed',String(showRoom));};
  $('renderQuality').onchange=()=>plant?.quality($('renderQuality').value);
  $('floorCount').onchange=recipeUI;$('start').onclick=()=>action({type:'start',recipe:readRecipe()});$('stop').onclick=()=>action({type:'stop'});$('step').onclick=()=>action({type:'step'});$('reset').onclick=()=>action({type:'reset'});
  $('emergency').onclick=()=>action({type:'fault',name:'emergency',value:!state.faults.emergency});

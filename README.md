@@ -62,6 +62,12 @@ O servidor e o modelo usam módulos nativos do Node.js. Babylon.js e Vite são n
 
 ## Escopo e fidelidade
 
+A renderização foi revisada com as dez fotografias reais de `X:\Imagens\N2`, de 28/10/2026. O ambiente inclui piso amadeirado, divisória de vidro com faixas vermelhas, sala adjacente, janela, rack de rede, nobreak, quadro elétrico e TV. A máquina recebeu consoles inclinados, IHMs ilustrativas, acabamento escuro dos gabinetes, motores, conexões pneumáticas, cabeamento e juntas do robô. Sombras de 2048 pixels, reflexos locais e oclusão de contato complementam a resolução adaptativa e a suavização das bordas.
+
+Use **Ambiente** para enquadrar a sala e **Sala visível/oculta** para inspecionar os mecanismos. Paredes próximas se ocultam ao orbitar para fora da sala. O modo **Econômica** desliga sombras, reflexos e oclusão de contato. A configuração Alta limita a imagem a três milhões de pixels para equilibrar definição e custo gráfico.
+
+As dimensões do cômodo, mobiliário, materiais e detalhes sem cotas são aproximações visuais. As texturas são procedurais, sem serviços externos. As IHMs são ilustrações; o estoque inicial e a cinemática didática foram preservados. O inventário e os hashes das fotos estão em [data/visual-references.json](data/visual-references.json); os arquivos fotográficos não foram incorporados à demo.
+
 Esta versão realiza **simulação e comissionamento do modelo local**. Não está conectada a CLPs, robô, MES ou serviços externos. Geometria sem cotas e tempos são aproximações; no automático, o robô usa trajetos didáticos entre os pontos de contato da geometria. Os comandos manuais reproduzem os pontos extraídos. Não há cinemática UR, dinâmica ou validação de colisões. Não equivale a uma réplica física calibrada nem valida segurança funcional.
 
 Os manuais e demais anexos originais do fabricante **não estão neste repositório**. Para usar os links de consulta no aplicativo e a extração documental, coloque a pasta `N2` ao lado da pasta do projeto, conforme o guia. A simulação funciona sem esses anexos; seus hashes e as referências técnicas usadas estão em `data/`.

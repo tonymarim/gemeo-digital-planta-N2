@@ -1,4 +1,6 @@
-import {Engine,Scene,ArcRotateCamera,Vector3,Color3,Color4,HemisphericLight,DirectionalLight,MeshBuilder,StandardMaterial,DynamicTexture,TransformNode,Quaternion,DefaultRenderingPipeline,ShadowGenerator} from '@babylonjs/core';
+import {Engine,Scene,ArcRotateCamera,Vector3,Color3,Color4,HemisphericLight,DirectionalLight,MeshBuilder,StandardMaterial,DynamicTexture,TransformNode,Quaternion,DefaultRenderingPipeline,ShadowGenerator,PointLight,ReflectionProbe,RenderTargetTexture,SSAO2RenderingPipeline} from '@babylonjs/core';
+import {createLaboratory} from './laboratory.js';
+import {detailEquipment} from './equipment-detail.js';
 import {geometry,stockPoint as stockCell,rackPoint as rackCell,depotPoint,visualFrame} from './visual-state.mjs';
 
 export function createPlant(canvas,catalog,onSelect){
@@ -10,18 +12,21 @@ export function createPlant(canvas,catalog,onSelect){
   engine.setHardwareScalingLevel(1/ratio);engine.resize();
  }
  resize();
- const scene=new Scene(engine);scene.clearColor=new Color4(.82,.87,.9,1);scene.ambientColor=new Color3(.12,.12,.12);
+ const scene=new Scene(engine);scene.clearColor=new Color4(.86,.87,.85,1);scene.ambientColor=new Color3(.10,.10,.10);
  const overviewRadius=()=>Math.max(3.3,4.5/(canvas.clientWidth/canvas.clientHeight));
- const camera=new ArcRotateCamera('orbit',-Math.PI/2-.25,1.28,overviewRadius(),new Vector3(0,.78,0),scene);
+ const camera=new ArcRotateCamera('orbit',-Math.PI/2-.40,1.20,overviewRadius(),new Vector3(0,.87,0),scene);
  camera.attachControl(canvas,false);camera.lowerRadiusLimit=.85;camera.upperRadiusLimit=9;
  camera.wheelDeltaPercentage=.006;camera.pinchDeltaPercentage=.003;camera.inertia=.75;camera.panningInertia=.65;
  camera.minZ=.02;camera.panningSensibility=1600;camera.lowerBetaLimit=.12;camera.upperBetaLimit=1.55;
  const pipeline=new DefaultRenderingPipeline('qualidade',false,scene,[camera]);
  pipeline.samples=4;pipeline.fxaaEnabled=true;pipeline.imageProcessingEnabled=false;
- const hemi=new HemisphericLight('sky',new Vector3(.3,1,-.5),scene);hemi.intensity=.85;hemi.groundColor=new Color3(.35,.4,.45);
- const sun=new DirectionalLight('sun',new Vector3(-.4,-1,.5),scene);sun.intensity=.5;sun.position=new Vector3(1.5,4,-2);
+ const ao=SSAO2RenderingPipeline.IsSupported?new SSAO2RenderingPipeline('oclusão de contato',scene,{ssaoRatio:.5,blurRatio:.5},[camera]):null;
+ if(ao){ao.radius=.09;ao.totalStrength=.85;ao.samples=8;ao.expensiveBlur=false;ao.textureSamples=1;}
+ const hemi=new HemisphericLight('sky',new Vector3(.3,1,-.5),scene);hemi.intensity=.62;hemi.groundColor=new Color3(.38,.34,.28);
+ const sun=new DirectionalLight('janela',new Vector3(.5,-1,.3),scene);sun.intensity=.62;sun.diffuse=new Color3(1,.95,.85);sun.position=new Vector3(-2.1,3,-1.2);
+ const ceilingLight=new PointLight('painéis LED',new Vector3(.5,3,-.7),scene);ceilingLight.intensity=.3;ceilingLight.diffuse=new Color3(.93,.97,1);
  sun.autoCalcShadowZBounds=true;
- const shadow=new ShadowGenerator(1024,sun);shadow.usePercentageCloserFiltering=true;shadow.bias=.0005;shadow.normalBias=.015;shadow.setDarkness(.25);
+ const shadow=new ShadowGenerator(2048,sun);shadow.usePercentageCloserFiltering=true;shadow.filteringQuality=ShadowGenerator.QUALITY_HIGH;shadow.bias=.0001;shadow.normalBias=.003;shadow.setDarkness(.42);
  const materials={};
  function mat(name,hex){if(materials[name])return materials[name];const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=new Color3(.16,.16,.16);m.specularPower=48;materials[name]=m;return m;}
  const metal=mat('aluminum','#a8b7bf'),dark=mat('frame','#26313a'),black=mat('black','#141d25'),deck=mat('deck','#bac6cd'),rubber=mat('rubber','#323c43'),lime=mat('lime','#b9da4e'),cyan=mat('urblue','#65bed4'),white=mat('white','#e2e8eb');
@@ -30,11 +35,7 @@ export function createPlant(canvas,catalog,onSelect){
  function cyl(name,x,y,z,d,h,m,parent){const mesh=MeshBuilder.CreateCylinder(name,{diameter:d,height:h,tessellation:32},scene);mesh.position.set(x,y,z);mesh.material=m;if(parent)mesh.parent=parent;return mesh;}
  function placeRod(r,a,b){const diff=b.subtract(a),length=diff.length();r.setEnabled(length>.00001);if(length<=.00001)return;r.position=Vector3.Center(a,b);r.scaling.y=length;r.rotationQuaternion=Quaternion.FromUnitVectorsToRef(Vector3.Up(),diff.normalize(),new Quaternion());}
  function textPanel(text,x,y,z,w,h,bg='#1d2a33',fg='#c3e366',size=60){const tex=new DynamicTexture('label-'+text,{width:1024,height:256},scene,false);tex.hasAlpha=false;tex.drawText(text,null,165,`600 ${size}px Segoe UI`,fg,bg,true);const m=new StandardMaterial('label-'+text,scene);m.diffuseTexture=tex;m.emissiveColor=new Color3(.45,.45,.45);m.backFaceCulling=false;const p=MeshBuilder.CreatePlane('label',{width:w,height:h},scene);p.position.set(x,y,z);p.material=m;return p;}
- const floor=box('piso',0,-.028,0,10,.04,7,mat('floor','#c9d5dc'));
- const gridLines=[];
- for(let x=-4;x<=4;x+=.25)gridLines.push([V(x,-.004,-3),V(x,-.004,3)]);
- for(let z=-3;z<=3;z+=.25)gridLines.push([V(-4,-.004,z),V(4,-.004,z)]);
- const grid=MeshBuilder.CreateLineSystem('grade',{lines:gridLines},scene);grid.color=new Color3(.52,.62,.68);grid.alpha=.12;grid.isPickable=false;
+ const laboratory=createLaboratory(scene),floor=laboratory.floor;
  const labels=[],lights={},belts=[],feeds={},stoppers={};
  for(const [i,s] of catalog.stations.entries()){
   const x=s.x,w=s.width;
@@ -125,11 +126,20 @@ export function createPlant(canvas,catalog,onSelect){
  const assembled=Array.from({length:3},(_,i)=>block('bloco montagem '+i,0,0,0,'azul'));assembled.forEach(b=>b.setEnabled(false));
  const carriedLam=box('lâmina manipulada',0,0,0,.055,.002,.03,materials.azul);carriedLam.setEnabled(false);
  const carriedLid=box('tampa manipulada',0,0,0,.09,.008,.09,dark);carriedLid.setEnabled(false);
+ const details=detailEquipment(scene,catalog,{box,cyl,mat,metal,dark,black,cyan,lights});
+ const reflection=new ReflectionProbe('reflexos laboratório',128,scene);reflection.position=V(0,1,.1);reflection.renderList=laboratory.objects.filter(m=>!m.material?.alpha||m.material.alpha===1);reflection.refreshRate=RenderTargetTexture.REFRESHRATE_RENDER_ONCE;reflection.cubeTexture.level=.24;
+ for(const m of [metal,details.steel,materials['porta vidro bronze']])m.reflectionTexture=reflection.cubeTexture;
+ // UR-style joint housings and polished link collars follow the same endpoints.
+ const jointHousings=joints.map((_,i)=>cyl('carcaça junta UR '+i,0,0,0,i<3?.096:.073,i<3?.095:.068,dark));
+ const jointCaps=joints.map((_,i)=>cyl('tampa azul junta UR '+i,0,0,0,i<3?.083:.062,.008,cyan));
+ const collars=links.map((_,i)=>[0,1].map(()=>cyl('colar elo UR '+i,0,0,0,i<2?.072:.053,.027,details.steel)));
+ const robotCable=MeshBuilder.CreateTube('cabo ferramenta UR',{path:Array.from({length:9},(_,i)=>V(0,1+i*.02,0)),radius:.004,tessellation:8,updatable:true},scene);robotCable.material=black;
  function block(name,x,y,z,color){
   const root=new TransformNode(name,scene);root.position.set(x,y,z);root.parts=[];
   const m=mat(color,catalog.colors[color]);
   box('base',0,-.018,0,.085,.012,.085,m,root);
-  for(const [dx,dz,w,d] of [[-.038,0,.009,.085],[.038,0,.009,.085],[0,.038,.085,.009],[0,-.038,.085,.009]])root.parts.push(box('parede',dx,.005,dz,w,.042,d,m,root));
+  for(const dx of [-.038,.038])for(const dz of [-.038,.038])root.parts.push(box('parede',dx,.005,dz,.009,.042,.009,m,root));
+  for(const [dx,dz,w,d] of [[-.038,0,.009,.085],[.038,0,.009,.085],[0,.038,.085,.009],[0,-.038,.085,.009]])root.parts.push(box('parede',dx,-.01,dz,w,.007,d,m,root));
   root.panels=[box('L1',-.044,.006,0,.002,.03,.055,white,root),box('L2',0,.006,.044,.055,.03,.002,white,root),box('L3',.044,.006,0,.002,.03,.055,white,root)];
   root.panels.forEach(p=>p.setEnabled(false));root.lid=box('tampa',0,.03,0,.09,.008,.09,dark,root);root.lid.setEnabled(false);return root;
  }
@@ -158,6 +168,7 @@ export function createPlant(canvas,catalog,onSelect){
  }
  function update(s){state=s;}
  function renderFrame(){
+  laboratory.update(camera);
   if(state){const s=state,frame=visualFrame(s,laminaColors);lastVisualFrame=frame;
    for(const b of belts)if(s.q[b.s+'.'+b.lane]&&!s.faults.jam){b.offset=(b.offset+Math.min(.05,engine.getDeltaTime()/1000)*.35*s.speed)%b.width;b.mesh.position.x=b.x+b.offset;}
    for(const st of catalog.stations){const id=st.id;feeds[id].position.z=-.10-(s.motion[id+'.feed']||0)*.24;stoppers[id].forEach((m,i)=>m.position.y=s.q[id+'.stopper'+(i+1)]?1.05:1.005);lights[id].material=s.alarm?materials.red:s.phase?.station===id&&s.status==='running'?lime:cyan;}
@@ -174,6 +185,9 @@ export function createPlant(canvas,catalog,onSelect){
    }
    const shoulder=base.add(V(0,.13,0)),wrist=tcp.add(V(0,.08,0)),elbow=base.add(V(-.22,.40,.09));
    const points=[base,shoulder,elbow,Vector3.Lerp(elbow,wrist,.82),wrist,tcp];joints.forEach((j,i)=>j.position=points[i]);links.forEach((l,i)=>placeRod(l,joints[i].position,joints[i+1].position));gripper.position=tcp;
+   joints.forEach((j,i)=>{j.setEnabled(false);const housing=jointHousings[i],cap=jointCaps[i];housing.position=j.position.clone();housing.rotation.x=Math.PI/2;cap.position=j.position.add(V(0,0,-(i<3?.051:.038)));cap.rotation.x=Math.PI/2;});
+   links.forEach((l,i)=>collars[i].forEach((c,k)=>{const a=points[i],b=points[i+1];c.position=Vector3.Lerp(a,b,k?.90:.10);c.rotationQuaternion=l.rotationQuaternion;}));
+   const cablePath=Array.from({length:9},(_,i)=>{const t=i/8,p=Vector3.Lerp(elbow,tcp,t);return p.add(V(.04*Math.sin(Math.PI*t),.075*Math.sin(Math.PI*t),.045));});MeshBuilder.CreateTube('cabo ferramenta UR',{path:cablePath,instance:robotCable});
    const gap=frame.open?.065:frame.gripKind==='lamina'?.0345:frame.gripKind==='lid'?.052:.0495;jawLeft.position.x=-gap;jawRight.position.x=gap;
    payloads(frame);
   }scene.render();
@@ -185,17 +199,18 @@ export function createPlant(canvas,catalog,onSelect){
   const active=node=>({name:node.name,owner:node.metadata?.owner,parent:node.parent?.name||null,position:point(node)});
   const stockGaps=stockMeshes.flatMap((b,i)=>b.isEnabled()?[Math.abs(point(b)[1]-geometry.blockBottom-stockPlates[i].getBoundingInfo().boundingBox.maximumWorld.y)]:[]);
   const laminaGaps=laminaColors.flatMap(c=>{const visible=laminaStacks[c].filter(m=>m.isEnabled());let top=laminaSupports[c].getBoundingInfo().boundingBox.maximumWorld.y;return visible.map(m=>{const bounds=m.getBoundingInfo().boundingBox,gap=Math.abs(bounds.minimumWorld.y-top);top=bounds.maximumWorld.y;return gap;});});
-  return {frame:lastVisualFrame,bases:assembled.filter(b=>b.isEnabled()).map(active),rack:expMeshes.flat().filter(b=>b.isEnabled()).map(active),lamina:carriedLam.isEnabled()?active(carriedLam):null,lid:carriedLid.isEnabled()?active(carriedLid):null,tools:{stock:point(stockTool),process:point(suctionAnchor),robot:point(gripper),expedition:point(expFork)},supportTop:{stock:stockPlate.getBoundingInfo().boundingBox.maximumWorld.y,expedition:expPlate.getBoundingInfo().boundingBox.maximumWorld.y},contacts:{stockMaxGap:Math.max(0,...stockGaps),laminaMaxGap:Math.max(0,...laminaGaps)}};
+  return {graphics:{quality,contactOcclusion:!!ao,environmentMeshes:laboratory.objects.filter(m=>m.isEnabled()).length,meshCount:scene.meshes.length,fps:engine.getFps(),camera:camera.position.asArray(),cameraRadius:camera.radius},frame:lastVisualFrame,bases:assembled.filter(b=>b.isEnabled()).map(active),rack:expMeshes.flat().filter(b=>b.isEnabled()).map(active),lamina:carriedLam.isEnabled()?active(carriedLam):null,lid:carriedLid.isEnabled()?active(carriedLid):null,tools:{stock:point(stockTool),process:point(suctionAnchor),robot:point(gripper),expedition:point(expFork)},supportTop:{stock:stockPlate.getBoundingInfo().boundingBox.maximumWorld.y,expedition:expPlate.getBoundingInfo().boundingBox.maximumWorld.y},contacts:{stockMaxGap:Math.max(0,...stockGaps),laminaMaxGap:Math.max(0,...laminaGaps)}};
  }
  scene.onPointerObservable.add(p=>{if(p.type===1&&p.pickInfo?.pickedMesh?.metadata?.station)onSelect(p.pickInfo.pickedMesh.metadata.station);});
  floor.receiveShadows=true;
  for(const mesh of scene.meshes){
-  if(/gabinete|^perfil$|^porta$|^tampo$|^coluna|^elo |^junta |^base UR3e$|^parede$|^eixo|^pórtico|^corpo EGH$/.test(mesh.name))shadow.addShadowCaster(mesh);
+  if(/gabinete|^perfil$|^porta$|^tampo$|^coluna|^elo |junta UR|^base UR3e$|^parede$|^eixo|^pórtico|^corpo EGH$|console|rack rede|^base$|^parede$|prateleira/.test(mesh.name))shadow.addShadowCaster(mesh);
   if(/^tampo$|^porta$|^longarina$/.test(mesh.name))mesh.receiveShadows=true;
  }
  new ResizeObserver(resize).observe(canvas);window.addEventListener('resize',resize);
- return {update,inspect,quality(value){quality=value==='economy'?'economy':'high';pipeline.samples=quality==='high'?4:1;shadow.setDarkness(quality==='high'?.25:0);sun.shadowEnabled=quality==='high';resize();},view(id){
+ return {update,inspect,environment:show=>laboratory.visible(show),quality(value){quality=value==='economy'?'economy':'high';pipeline.samples=quality==='high'?4:1;shadow.setDarkness(quality==='high'?.42:0);sun.shadowEnabled=quality==='high';reflection.cubeTexture.level=quality==='high'?.24:0;if(ao){scene.postProcessRenderPipelineManager.detachCamerasFromRenderPipeline('oclusão de contato',[camera]);if(quality==='high')scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('oclusão de contato',[camera]);}resize();},view(id){
   camera.inertialRadiusOffset=0;camera.inertialAlphaOffset=0;camera.inertialBetaOffset=0;camera.inertialPanningX=0;camera.inertialPanningY=0;
-  if(id==='all'){camera.setTarget(V(0,.78,0));camera.alpha=-Math.PI/2-.25;camera.beta=1.28;camera.radius=overviewRadius();}else if(id==='top'){camera.setTarget(V(0,.9,0));camera.alpha=-Math.PI/2;camera.beta=.13;camera.radius=Math.max(3.5,overviewRadius());}else if(id==='front'){camera.setTarget(V(0,.8,0));camera.alpha=-Math.PI/2;camera.beta=1.5;camera.radius=overviewRadius();}else{const s=catalog.stations.find(s=>s.id===id);camera.setTarget(V(s.x,1.05,0));camera.radius=1.8;camera.beta=1.0;camera.alpha=-Math.PI/2-.4;}
+  if(id==='room'){camera.setTarget(V(.05,1.03,.05));camera.alpha=-Math.PI/2-.30;camera.beta=1.23;camera.radius=Math.max(5,6.8/(canvas.clientWidth/canvas.clientHeight));return;}
+  if(id==='all'){camera.setTarget(V(0,.87,0));camera.alpha=-Math.PI/2-.40;camera.beta=1.20;camera.radius=overviewRadius();}else if(id==='top'){camera.setTarget(V(0,.9,0));camera.alpha=-Math.PI/2;camera.beta=.13;camera.radius=Math.max(3.5,overviewRadius());}else if(id==='front'){camera.setTarget(V(0,.8,0));camera.alpha=-Math.PI/2;camera.beta=1.5;camera.radius=overviewRadius();}else{const s=catalog.stations.find(s=>s.id===id);camera.setTarget(V(s.x,1.05,0));camera.radius=1.8;camera.beta=1.0;camera.alpha=-Math.PI/2-.4;}
  },labels(show){labels.forEach(m=>m.setEnabled(show));}};
 }

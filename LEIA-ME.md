@@ -112,6 +112,8 @@ Não há informação suficiente nos arquivos fornecidos para afirmar equivalên
 - `npm run build`: recompila a interface. Usa `node_modules` local ou as dependências já disponíveis no projeto vizinho `gemeo_digital_vibracaomotor`. Em outro computador, instale as dependências declaradas no `package.json` antes de compilar. A versão pronta não exige essa etapa.
 - `npm run build:demo`: gera a edição estática em `demo-dist/`. Para publicar em uma pasta específica, use `node build-demo.mjs CAMINHO`. `tools/sync-demo.mjs` sincroniza os fontes para `src/n2/` no checkout do portal; não envia alterações ao GitHub por conta própria.
 - `tests/demo-browser.cjs`: verifica a versão estática, isolamento entre visitantes, operação, falhas, relatórios e ausência de chamadas `/api`. Aceita `DEMO_URL` apontando para a raiz do portal e `PLAYWRIGHT_PATH`.
+- `tests/environment-browser.cjs`: verifica o ambiente, recorte de paredes, modos gráficos e zoom pela distância real da câmera. Compile com `node tests/build-visual.mjs` e sirva `visual-test-dist/` na porta 4186. As capturas ficam em `reports/laboratorio-*.png`.
+- `tools/package-local.py`: regenera e verifica o ZIP local com os fontes e a interface compilada, sem dependências ou manuais.
 - `tools/extract.py`: requer Python com pypdf. Reextrai os dados das fontes da pasta irmã `N2/`.
 - `tests/browser.cjs`: requer Playwright e Edge; pode receber `PLAYWRIGHT_PATH`. O caminho padrão é o runtime do ambiente usado na entrega. Execute em uma instância recém-iniciada do servidor.
 

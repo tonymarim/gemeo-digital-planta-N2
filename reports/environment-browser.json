@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "errors": [],
+  "high": {
+    "quality": "high",
+    "contactOcclusion": true,
+    "environmentMeshes": 269,
+    "meshCount": 2128,
+    "fps": 27.868091035764074,
+    "camera": [
+      -1.1977452822199488,
+      2.065780589773023,
+      -2.8329339950026955
+    ],
+    "cameraRadius": 3.3
+  },
+  "zoomChangePercent": 1.09,
+  "checks": [
+    "zoom medido pela distância da câmera",
+    "sala com geometria própria",
+    "vista ampla",
+    "ocultar e reexibir ambiente",
+    "troca Alta/Econômica",
+    "vistas de todas as estações",
+    "órbita com recorte arquitetônico",
+    "capturas da cena real"
+  ]
+}

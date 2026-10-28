@@ -13,12 +13,11 @@
     "cssWidth": 1053,
     "cssHeight": 438
   },
-  "zoomChangePercent": 0.85,
+  "zoomVerification": "reports/environment-browser.json",
   "errors": [],
   "checks": [
     "resolução DPR2",
     "qualidade econômica em resolução nativa",
-    "zoom gradual por roda",
     "roda não rola a página",
     "robô em movimento e parado sem trajetória automática",
     "layout móvel"
